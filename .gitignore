@@ -1,0 +1,16 @@
+# Compiled files
+*.tfstate
+*.tfstate.backup
+
+# Module directory
+.terraform
+.idea
+*.iml
+.build-harness
+build-harness
+*.ini
+
+*~HEAD
+*backup
+
+*.orig

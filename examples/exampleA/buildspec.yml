@@ -1,0 +1,28 @@
+version: 0.2
+
+env:
+  variables:
+    environment: "dev"
+    MAJOR: "1"
+    MINOR: "1"
+
+phases:
+  install:
+    commands:
+      - apk add nodejs-current nodejs-npm
+      - apk add python python-dev py-pip build-base
+      - apk add jq
+      - pip install --upgrade pip
+      - pip install awscli
+  pre_build:
+    commands:
+      - echo "pre_build step"
+      - . ./buildno.sh
+      - echo "Running - $BUILDVERSION"
+  build:
+    commands:
+      - echo "build command"
+      - BUILDVERSION=$BUILDVERSION npm run version
+  post_build:
+    commands:
+      - if [ $CODEBUILD_BUILD_SUCCEEDING = 1 ]; then . ./setlatest.sh; else echo Build failed; fi

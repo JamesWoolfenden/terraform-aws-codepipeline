@@ -1,0 +1,8 @@
+{
+  "MD013": false,
+  "MD034": false,
+  "MD041": false,
+  "MD033": {
+    "allowed_elements": [ "br" ]
+  }
+}

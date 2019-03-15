@@ -1,0 +1,86 @@
+---
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# Name of this project
+name: terraform-aws-codepipeline
+
+# Tags of this project
+tags:
+  - aws
+  - terraform
+  - terraform-modules
+  - codepipeline
+
+# Categories of this project
+categories:
+  - terraform-modules/CICD
+
+# Logo for this project
+#logo: docs/slalom-logo.png
+
+# License of this project
+license: "APACHE2"
+
+# Copyrights
+copyrights:
+  - name: "Slalom, LLC"
+    url: "https://slalom.com"
+    year: "2019"
+
+# Canonical GitHub repo
+github_repo: jameswoolfenden/terraform-aws-codepipeline
+
+# Badges to display
+badges:
+  - name: "Build Status"
+    image: "https://travis-ci.com/JamesWoolfenden/terraform-aws-codepipeline.svg?branch=master"
+    url: "https://travis-ci.com/JamesWoolfenden/terraform-aws-codepipeline"
+  - name: "Latest Release"
+    image: "https://img.shields.io/github/release/JamesWoolfenden/terraform-aws-codepipeline.svg"
+    url: "https://github.com/JamesWoolfenden/terraform-aws-codepipeline/releases/latest"
+
+related:
+  - name: "terraform-aws-codebuild"
+    description: "Making a Build pipeline"
+    url: "https://github.com/jameswoolfenden/terraform-aws-codebuild"
+
+# Short description of this project
+description: |-
+  Terraform module to provision an AWS [`codepipeline`](https://aws.amazon.com/codepipeline/) CI/CD system.
+  The module also creates the build itself and and the example sets a deployment up for a fargate project.
+
+# How to use this project
+usage: |-
+  Include this repository as a module in your existing terraform code:
+
+  ```hcl
+  module "codepipeline" {
+    source                 = "github.com/jameswoolfenden/terraform-aws-codepipeline"
+    version                ="0.1.1"
+    artifact_store         = "${var.artifact_store}"
+    bucketname             = "${lookup(var.artifact_store[0],"location")}"
+    build_timeout          = "${var.build_timeout}"
+    common_tags            = "${var.common_tags}"
+    description            = "${var.description}"
+    env                    = "${var.env}"
+    environment            = "${var.environment}"
+    force_artifact_destroy = "${var.force_artifact_destroy}"
+    name                   = "${var.name}"
+    projectroot            = "${var.projectroot}"
+    sourcecode             = "${var.sourcecode}"
+    stage                  = "${var.stage}"
+    type                   = "${var.type}"
+  }
+  ```
+
+include:
+  - "docs/targets.md"
+  - "docs/terraform.md"
+
+# Contributors to this project
+contributors:
+  - name: "James Woolfenden"
+    github: "jameswoolfenden"

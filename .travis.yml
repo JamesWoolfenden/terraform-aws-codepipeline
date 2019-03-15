@@ -1,0 +1,28 @@
+branches:
+  only:
+    - master
+env:
+  - VERSION="0.1.$TRAVIS_BUILD_NUMBER"
+addons:
+  apt:
+    packages:
+      - git
+      - make
+      - curl
+
+install:
+  - make init
+
+script:
+  - echo Build Version $VERSION
+  - make terraform:install
+  - make terraform:get-plugins
+  - make terraform:get-modules
+  - make terraform:lint
+  - make terraform:validate
+after_success:
+  - git config --global user.email "builds@travis-ci.com"
+  - git config --global user.name "Travis CI"
+  - export GIT_TAG=$VERSION
+  - git tag $GIT_TAG -a -m "Generated tag from TravisCI build $VERSION"
+  - git push --quiet https://$TAGAUTH@github.com/jameswoolfenden/terraform-aws-codepipeline $GIT_TAG > /dev/null 2>&1
