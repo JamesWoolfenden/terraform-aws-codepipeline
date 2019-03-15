@@ -1,5 +1,5 @@
 module "codepipeline" {
-  source = "../../"
+  source                 = "../../"
   artifact_store         = "${var.artifact_store}"
   bucketname             = "${lookup(var.artifact_store[0],"location")}"
   build_timeout          = "${var.build_timeout}"

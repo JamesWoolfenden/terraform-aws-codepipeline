@@ -57,6 +57,5 @@ variable "env" {
 }
 
 variable "type" {
-  type="string"
+  type = "string"
 }
-
