@@ -12,4 +12,5 @@ module "codebuild" {
   reponame               = "${var.name}"
   sourcecode             = "${var.sourcecode}"
   type                   = "${var.type}"
+  encryption_disabled    = "${var.encryption_disabled}"
 }

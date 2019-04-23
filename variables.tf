@@ -61,3 +61,10 @@ variable "type" {
 }
 
 variable "bucketname" {}
+
+variable "policypath" {
+  default = ""
+  type    = "string"
+}
+
+variable "encryption_disabled" {}
