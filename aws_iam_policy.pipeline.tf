@@ -1,5 +1,5 @@
 resource "aws_iam_policy" "pipeline" {
-  name        = "AWSCodePipelineServiceRole-${data.aws_region.current.name}-${var.name}"
+  name        = "PipelineService-${data.aws_region.current.name}-${var.name}"
   description = "${var.description}"
   path        = "${var.policypath}"
 

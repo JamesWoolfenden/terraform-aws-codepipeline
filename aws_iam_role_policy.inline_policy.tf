@@ -1,6 +1,7 @@
 resource "aws_iam_role_policy" "inline_policy" {
-  name = "AWSCodePipelineServiceRole-${data.aws_region.current.name}-${var.name}"
-  role = "${aws_iam_role.pipeline.id}"
+  count = "${var.role_arn=="" ? 1: 0}"
+  name  = "AWSCodePipelineServiceRole-${data.aws_region.current.name}-${var.name}"
+  role  = "${aws_iam_role.pipeline.name}"
 
   policy = <<POLICY
 {

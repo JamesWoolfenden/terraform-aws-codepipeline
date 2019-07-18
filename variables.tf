@@ -53,7 +53,7 @@ variable "sourcecode" {
 
 variable "env" {
   description = ""
-  type        = ""
+  type        = "string"
 }
 
 variable "type" {
