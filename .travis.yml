@@ -1,25 +1,32 @@
+dist: trusty
+sudo: required
+services:
+  - docker
 branches:
   only:
     - master
 env:
-  - VERSION="0.1.$TRAVIS_BUILD_NUMBER"
+  - VERSION="0.2.$TRAVIS_BUILD_NUMBER"
 addons:
   apt:
     packages:
       - git
-      - make
       - curl
 
-install:
-  - make init
+before_script:
+- export TERRAFORM_VERSION=$(curl -s https://checkpoint-api.hashicorp.com/v1/check/terraform | jq -r -M '.current_version')
+- curl --silent --output terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
+- unzip terraform.zip ; rm -f terraform.zip; chmod +x terraform
+- mkdir -p ${HOME}/bin ; export PATH=${PATH}:${HOME}/bin; mv terraform ${HOME}/bin/
+- terraform -v
 
 script:
-  - echo Build Version $VERSION
-  - make terraform:install
-  - make terraform:get-plugins
-  - make terraform:get-modules
-  - make terraform:lint
-  - make terraform:validate
+- terraform init -get-plugins -backend=false -input=false
+- terraform init -get -backend=false -input=false
+- terraform fmt
+- bash validate.sh
+
+
 after_success:
   - git config --global user.email "builds@travis-ci.com"
   - git config --global user.name "Travis CI"
