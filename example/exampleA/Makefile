@@ -27,5 +27,5 @@ valid:
 	tflint
 	terraform fmt -check=true -diff=true
 
-purge: 
+purge:
 	rm -rf .terraform/

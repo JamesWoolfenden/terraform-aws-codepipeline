@@ -2,7 +2,6 @@
 
 # terraform-aws-codepipeline [![Build Status](https://travis-ci.com/JamesWoolfenden/terraform-aws-codepipeline.svg?branch=master)](https://travis-ci.com/JamesWoolfenden/terraform-aws-codepipeline) [![Latest Release](https://img.shields.io/github/release/JamesWoolfenden/terraform-aws-codepipeline.svg)](https://github.com/JamesWoolfenden/terraform-aws-codepipeline/releases/latest)
 
-
 Terraform module to provision an AWS [`codepipeline`](https://aws.amazon.com/codepipeline/) CI/CD system.
 The module also creates the build itself and and the example sets a deployment up for a fargate project.
 
@@ -19,16 +18,13 @@ module "codepipeline" {
   source                 = "github.com/jameswoolfenden/terraform-aws-codepipeline"
   version                = "0.1.1"
   artifact_store         = var.artifact_store
-  bucketname             = lookup(var.artifact_store[0],"location")
   build_timeout          = var.build_timeout
   common_tags            = var.common_tags
   description            = var.description
   env                    = var.env
   environment            = var.environment
-  force_artifact_destroy = var.force_artifact_destroy
   name                   = var.name
   projectroot            = var.projectroot
-  sourcecode             = var.sourcecode
   stage                  = var.stage
   type                   = var.type
 }
@@ -39,24 +35,19 @@ module "codepipeline" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| artifact_store | Describes an object where stage artifacts are stored, most likely S3 | list | - | yes |
-| bucketname | - | string | - | yes |
-| build_timeout | Timeout set for the build to run | string | - | yes |
-| common_tags | Implements the common tags scheme | map | - | yes |
-| description | Description of build project | string | - | yes |
-| env | - | string | - | yes |
-| environment | - | list | - | yes |
-| force_artifact_destroy | - | string | - | yes |
-| name | - | string | - | yes |
-| projectroot | The root path element for SSM variables | string | - | yes |
-| role_arn | Optionally supply an existing role | string | `` | no |
-| sourcecode | - | list | - | yes |
-| stage | This list describes each stage of the build, so it really should be stages. | list | - | yes |
-| type | - | string | - | yes |
+| artifact\_store | The Artifact store | map | n/a | yes |
+| build\_timeout | Timeout set for the build to run | string | n/a | yes |
+| common\_tags | Implements the common tags scheme | map | n/a | yes |
+| description | Description of build project | string | n/a | yes |
+| env |  | string | n/a | yes |
+| environment |  | list | n/a | yes |
+| name |  | string | n/a | yes |
+| policypath |  | string | `""` | no |
+| projectroot | The root path element for SSM variables | string | n/a | yes |
+| role\_arn | Optionally supply an existing role | string | `""` | no |
+| stages | This list describes each stage of the build | list | n/a | yes |
+
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
-
-
 
 ## Related Projects
 
@@ -86,22 +77,22 @@ Copyright © 2019-2019 [Slalom, LLC](https://slalom.com)
 
 See [LICENSE](LICENSE) for full details.
 
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
 
-      https://www.apache.org/licenses/LICENSE-2.0
+<https://www.apache.org/licenses/LICENSE-2.0>
 
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
 
 ### Contributors
 
@@ -120,5 +111,4 @@ See [LICENSE](LICENSE) for full details.
 [share_linkedin]: https://www.linkedin.com/shareArticle?mini=true&title=terraform-aws-codepipeline&url=https://github.com/jameswoolfenden/terraform-aws-codepipeline
 [share_reddit]: https://reddit.com/submit/?url=https://github.com/jameswoolfenden/terraform-aws-codepipeline
 [share_facebook]: https://facebook.com/sharer/sharer.php?u=https://github.com/jameswoolfenden/terraform-aws-codepipeline
-[share_googleplus]: https://plus.google.com/share?url=https://github.com/jameswoolfenden/terraform-aws-codepipeline
 [share_email]: mailto:?subject=terraform-aws-codepipeline&body=https://github.com/jameswoolfenden/terraform-aws-codepipeline
