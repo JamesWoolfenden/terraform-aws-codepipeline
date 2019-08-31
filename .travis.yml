@@ -6,7 +6,7 @@ branches:
   only:
     - master
 env:
-  - VERSION="0.2.$TRAVIS_BUILD_NUMBER"
+  - VERSION="0.3.$TRAVIS_BUILD_NUMBER"
 addons:
   apt:
     packages:

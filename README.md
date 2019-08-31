@@ -3,7 +3,7 @@
 # terraform-aws-codepipeline [![Build Status](https://travis-ci.com/JamesWoolfenden/terraform-aws-codepipeline.svg?branch=master)](https://travis-ci.com/JamesWoolfenden/terraform-aws-codepipeline) [![Latest Release](https://img.shields.io/github/release/JamesWoolfenden/terraform-aws-codepipeline.svg)](https://github.com/JamesWoolfenden/terraform-aws-codepipeline/releases/latest)
 
 Terraform module to provision an AWS [`codepipeline`](https://aws.amazon.com/codepipeline/) CI/CD system.
-The module also creates the build itself and and the example sets a deployment up for a fargate project.
+The module also creates the build itself and and the example sets a deployment up for a fargate project.  The module has been fully updated to work with Terraform 0.12.
 
 ---
 
@@ -15,18 +15,17 @@ Include this repository as a module in your existing terraform code:
 
 ```hcl
 module "codepipeline" {
-  source                 = "github.com/jameswoolfenden/terraform-aws-codepipeline"
-  version                = "0.1.1"
-  artifact_store         = var.artifact_store
-  build_timeout          = var.build_timeout
-  common_tags            = var.common_tags
-  description            = var.description
-  env                    = var.env
-  environment            = var.environment
-  name                   = var.name
-  projectroot            = var.projectroot
-  stage                  = var.stage
-  type                   = var.type
+  source         = "JamesWoolfenden/codepipeline/aws"
+  version        = "0.3.12"
+  artifact_store = var.artifact_store
+  build_timeout  = var.build_timeout
+  common_tags    = var.common_tags
+  description    = var.description
+  env            = var.env
+  environment    = var.environment
+  name           = var.name
+  projectroot    = var.projectroot
+  stages         = var.stages
 }
 ```
 
