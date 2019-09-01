@@ -1,12 +1,10 @@
 terraform {
-required_version="~> 0.12"
-
+required_version=">= 0.12.0"
 backend "remote" {
-    workspaces {
-        name="terraform-aws-codepipeline-exampleA"
-    }
-    hostname = "app.terraform.io" 
     organization = "wolf"
-  }
 
+    workspaces {
+      name = "terraform-aws-codepipeline"
+    }
+  }
 }
