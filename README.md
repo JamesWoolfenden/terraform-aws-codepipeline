@@ -3,7 +3,7 @@
 # terraform-aws-codepipeline [![Build Status](https://travis-ci.com/JamesWoolfenden/terraform-aws-codepipeline.svg?branch=master)](https://travis-ci.com/JamesWoolfenden/terraform-aws-codepipeline) [![Latest Release](https://img.shields.io/github/release/JamesWoolfenden/terraform-aws-codepipeline.svg)](https://github.com/JamesWoolfenden/terraform-aws-codepipeline/releases/latest)
 
 Terraform module to provision an AWS [`codepipeline`](https://aws.amazon.com/codepipeline/) CI/CD system.
-The module also creates the build itself and and the example sets a deployment up for a fargate project.  The module has been fully updated to work with Terraform 0.12.
+The module also creates the build itself and and the example sets a deployment up for a fargate project.  The module has been fully updated to work with Terraform 0.12 and Terraform Cloud.
 
 ---
 
@@ -18,13 +18,9 @@ module "codepipeline" {
   source         = "JamesWoolfenden/codepipeline/aws"
   version        = "0.3.12"
   artifact_store = var.artifact_store
-  build_timeout  = var.build_timeout
   common_tags    = var.common_tags
   description    = var.description
-  env            = var.env
-  environment    = var.environment
   name           = var.name
-  projectroot    = var.projectroot
   stages         = var.stages
 }
 ```
@@ -39,10 +35,8 @@ module "codepipeline" {
 | common\_tags | Implements the common tags scheme | map | n/a | yes |
 | description | Description of build project | string | n/a | yes |
 | env |  | string | n/a | yes |
-| environment |  | list | n/a | yes |
 | name |  | string | n/a | yes |
 | policypath |  | string | `""` | no |
-| projectroot | The root path element for SSM variables | string | n/a | yes |
 | role\_arn | Optionally supply an existing role | string | `""` | no |
 | stages | This list describes each stage of the build | list | n/a | yes |
 

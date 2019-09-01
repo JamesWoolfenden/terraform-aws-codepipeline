@@ -3,7 +3,6 @@ variable "artifact_store" {
   description = "The Artifact store "
 }
 
-
 variable "name" {
   type = string
 }
@@ -24,32 +23,10 @@ variable "description" {
   description = "Description of build project"
 }
 
-
 variable "common_tags" {
   type        = map
   description = "Implements the common tags scheme"
 }
-
-variable "build_timeout" {
-  type        = string
-  description = "Timeout set for the build to run"
-}
-
-variable "projectroot" {
-  type        = string
-  description = "The root path element for SSM variables"
-}
-
-variable "environment" {
-  type        = list
-  description = ""
-}
-
-variable "env" {
-  description = ""
-  type        = string
-}
-
 
 variable "policypath" {
   default     = ""

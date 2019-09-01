@@ -23,25 +23,6 @@ variable "common_tags" {
   description = "Implements the common tags scheme"
 }
 
-variable "build_timeout" {
-  type        = string
-  description = "Timeout set for the build to run"
-}
-
-variable "projectroot" {
-  type        = string
-  description = "The root path element for SSM variables"
-}
-
-variable "environment" {
-  type        = list
-  description = ""
-}
-
-variable "env" {
-  type = string
-}
-
 variable "artifact_store" {
   type = map
 }

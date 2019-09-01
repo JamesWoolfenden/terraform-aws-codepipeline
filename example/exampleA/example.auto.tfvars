@@ -1,6 +1,7 @@
 artifact_store = {
   location = "codepipeline-eu-west-1-163714928765"
-type = "S3" }
+  type = "S3" }
+description   = ""
 name = "cron-poll"
 stages = [{
   name = "Source"
@@ -52,19 +53,8 @@ stages = [{
   }
 ]
 
-
-environment = [{
-  compute_type    = "BUILD_GENERAL1_SMALL"
-  image           = "aws/codebuild/docker:18.09.0-1.7.0"
-  type            = "LINUX_CONTAINER"
-  privileged_mode = "true"
-}]
-
 common_tags = {
   name = "aws-codebuild-container"
 }
 
-build_timeout = 60
-description   = ""
-env           = "dev"
-projectroot   = "core"
+

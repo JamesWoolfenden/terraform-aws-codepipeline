@@ -7,6 +7,7 @@ resource "aws_codepipeline" "pipe" {
   name     = var.name
   role_arn = local.role_arn
 
+
   dynamic "stage" {
     for_each = [for s in var.stages : {
       name   = s.name
@@ -27,7 +28,6 @@ resource "aws_codepipeline" "pipe" {
       }
     }
   }
-
 
   tags = var.common_tags
 }
