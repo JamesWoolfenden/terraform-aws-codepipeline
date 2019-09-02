@@ -19,4 +19,4 @@ This is included as a reference, you will need to edit or replace this with your
 
 The Terraform version has also been fixed to be greater than 0.12.
 
-This example is compatible with Terraform Cloud.
+This example is compatible with Terraform Cloud and CLI.
