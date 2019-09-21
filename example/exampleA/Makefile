@@ -11,7 +11,10 @@ init:
 plan: init
 	terraform plan -refresh=true
 
-build: init
+build:
+	terraform apply -auto-approve
+
+apply:
 	terraform apply -auto-approve
 
 check: init
