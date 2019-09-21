@@ -56,5 +56,3 @@ stages = [{
 common_tags = {
   name = "aws-codebuild-container"
 }
-
-
