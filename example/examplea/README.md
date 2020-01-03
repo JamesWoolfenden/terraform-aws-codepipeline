@@ -1,4 +1,4 @@
-# ExampleA
+# Examplea
 
 This example include a connection to the Terraform Cloud in **terraform.tf**
 
