@@ -3,7 +3,7 @@
 # terraform-aws-codepipeline [![Build Status](https://travis-ci.com/JamesWoolfenden/terraform-aws-codepipeline.svg?branch=master)](https://travis-ci.com/JamesWoolfenden/terraform-aws-codepipeline) [![Latest Release](https://img.shields.io/github/release/JamesWoolfenden/terraform-aws-codepipeline.svg)](https://github.com/JamesWoolfenden/terraform-aws-codepipeline/releases/latest)
 
 Terraform module to provision an AWS [`codepipeline`](https://aws.amazon.com/codepipeline/) CI/CD system.
-The module also creates the build itself and and the example sets a deployment up for a fargate project.  The module has been fully updated to work with Terraform 0.12 and Terraform Cloud.
+The module also creates the build itself and and the example sets a deployment up for a Fargate project.  The module has been fully updated to work with Terraform 0.12 and Terraform Cloud.
 
 ---
 
@@ -30,11 +30,9 @@ module "codepipeline" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| artifact\_store | The Artifact store | map | n/a | yes |
-| build\_timeout | Timeout set for the build to run | string | n/a | yes |
+| artifact\_store | Map to populate the artifact block | map | n/a | yes |
 | common\_tags | Implements the common tags scheme | map | n/a | yes |
 | description | Description of build project | string | n/a | yes |
-| env |  | string | n/a | yes |
 | name |  | string | n/a | yes |
 | policypath |  | string | `""` | no |
 | role\_arn | Optionally supply an existing role | string | `""` | no |

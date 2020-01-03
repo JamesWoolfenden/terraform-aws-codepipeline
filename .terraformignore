@@ -1,0 +1,6 @@
+.terraform/
+*.exe
+*.tfstate
+*.backup
+*.bak
+*.info

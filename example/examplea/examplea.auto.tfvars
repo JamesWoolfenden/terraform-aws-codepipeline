@@ -1,8 +1,8 @@
 artifact_store = {
   location = "codepipeline-eu-west-1-163714928765"
-  type = "S3" }
-description   = ""
-name = "cron-poll"
+type = "S3" }
+description = ""
+name        = "cron-poll"
 stages = [{
   name = "Source"
   action = {

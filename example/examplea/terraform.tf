@@ -1,6 +1,6 @@
 terraform {
-required_version=">= 0.12.0"
-backend "remote" {
+  required_version = ">= 0.12.0"
+  backend "remote" {
     organization = "wolf"
 
     workspaces {

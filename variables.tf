@@ -1,6 +1,6 @@
 variable "artifact_store" {
+  description = "Map to populate the artifact block"
   type        = map
-  description = "The Artifact store "
 }
 
 variable "name" {
