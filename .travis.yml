@@ -1,3 +1,5 @@
+---
+# yamllint disable rule:line-length
 dist: trusty
 sudo: required
 services:
@@ -14,17 +16,19 @@ addons:
       - curl
 
 before_script:
-- export TERRAFORM_VERSION=$(curl -s https://checkpoint-api.hashicorp.com/v1/check/terraform | jq -r -M '.current_version')
-- curl --silent --output terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
-- unzip terraform.zip ; rm -f terraform.zip; chmod +x terraform
-- mkdir -p ${HOME}/bin ; export PATH=${PATH}:${HOME}/bin; mv terraform ${HOME}/bin/
-- terraform -v
+  - export TERRAFORM_VERSION=$(curl -s https://checkpoint-api.hashicorp.com/v1/check/terraform | jq -r -M '.current_version')
+  - curl --silent --output terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
+  - unzip terraform.zip ;
+  - rm -f terraform.zip; chmod +x terraform
+  - mkdir -p ${HOME}/bin ; export PATH=${PATH}:${HOME}/bin;
+  - mv terraform ${HOME}/bin/
+  - terraform -v
 
 script:
-- terraform init -get-plugins -backend=false -input=false
-- terraform init -get -backend=false -input=false
-- terraform fmt
-- bash validate.sh
+  - terraform init -get-plugins -backend=false -input=false
+  - terraform init -get -backend=false -input=false
+  - terraform fmt
+  - bash validate.sh
 
 
 after_success:
