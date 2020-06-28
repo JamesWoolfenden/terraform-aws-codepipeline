@@ -4,7 +4,7 @@ This example include a connection to the Terraform Cloud in **terraform.tf**
 
 ``` terraform
 terraform {
-required_version=">= 0.12.0"
+required_version="~> 0.12.0"
 backend "remote" {
     organization = "wolf"
 

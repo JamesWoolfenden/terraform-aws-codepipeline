@@ -1,0 +1,67 @@
+---
+name: Verify and Bump
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.7]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: "Terraform Init"
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.12.28
+          tf_actions_subcommand: "init"
+          tf_actions_working_dir: "example/examplea"
+      - name: "Terraform Validate"
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.12.28
+          tf_actions_subcommand: "validate"
+          tf_actions_working_dir: "example/examplea"
+      - name: Test with Checkov
+        run: |
+          pip install checkov
+          checkov -d .
+      - name: "Terraform Apply"
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.12.28
+          tf_actions_subcommand: "apply"
+          tf_actions_working_dir: "example/examplea"
+          args: '-auto-approve'
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: "Terraform Destroy"
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.12.28
+          tf_actions_subcommand: "destroy"
+          tf_actions_working_dir: "example/examplea"
+          args: '-auto-approve'
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  version:
+    name: versioning
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
+          WITH_V: "true"
+    needs: build

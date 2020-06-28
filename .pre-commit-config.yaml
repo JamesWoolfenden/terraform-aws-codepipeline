@@ -4,7 +4,7 @@ default_language_version:
   python: python3
 repos:
   - repo: git://github.com/pre-commit/pre-commit-hooks
-    rev: v2.5.0
+    rev: v3.1.0
     hooks:
       - id: check-json
       - id: check-merge-conflict
@@ -28,11 +28,11 @@ repos:
     hooks:
       - id: shell-lint
   - repo: git://github.com/igorshubovych/markdownlint-cli
-    rev: v0.22.0
+    rev: v0.23.1
     hooks:
       - id: markdownlint
   - repo: git://github.com/adrienverge/yamllint
-    rev: v1.20.0
+    rev: v1.23.0
     hooks:
       - id: yamllint
         name: yamllint
@@ -41,7 +41,7 @@ repos:
         language: python
         types: [file, yaml]
   - repo: git://github.com/jameswoolfenden/pre-commit
-    rev: 0.1.17
+    rev: v0.1.33
     hooks:
       - id: terraform-fmt
       - id: checkov-scan
