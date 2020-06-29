@@ -4,7 +4,7 @@ provider "aws" {
 }
 
 provider "local" {
-  version = "1.2"
+  version = "1.3"
 }
 
 provider "template" {
