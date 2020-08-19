@@ -4,7 +4,7 @@ default_language_version:
   python: python3
 repos:
   - repo: git://github.com/pre-commit/pre-commit-hooks
-    rev: v3.1.0
+    rev: v3.2.0
     hooks:
       - id: check-json
       - id: check-merge-conflict
@@ -18,7 +18,7 @@ repos:
       - id: detect-aws-credentials
       - id: detect-private-key
   - repo: git://github.com/Lucas-C/pre-commit-hooks
-    rev: v1.1.7
+    rev: v1.1.9
     hooks:
       - id: forbid-tabs
         exclude_types: [python, javascript, dtd, markdown, makefile, xml]
@@ -28,11 +28,11 @@ repos:
     hooks:
       - id: shell-lint
   - repo: git://github.com/igorshubovych/markdownlint-cli
-    rev: v0.23.1
+    rev: v0.23.2
     hooks:
       - id: markdownlint
   - repo: git://github.com/adrienverge/yamllint
-    rev: v1.23.0
+    rev: v1.24.2
     hooks:
       - id: yamllint
         name: yamllint
