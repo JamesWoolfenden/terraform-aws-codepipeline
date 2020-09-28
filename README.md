@@ -29,7 +29,6 @@ module "codepipeline" {
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
 ## Requirements
 
 No requirements.
@@ -37,26 +36,26 @@ No requirements.
 ## Providers
 
 | Name | Version |
-| ---- | ------- |
-| aws  | n/a     |
+|------|---------|
+| aws | n/a |
 
 ## Inputs
 
-| Name           | Description                                 | Type     | Default | Required |
-| -------------- | ------------------------------------------- | -------- | ------- | :------: |
-| artifact_store | Map to populate the artifact block          | `map`    | n/a     |   yes    |
-| common_tags    | Implements the common tags scheme           | `map`    | n/a     |   yes    |
-| description    | Description of build project                | `string` | n/a     |   yes    |
-| name           | n/a                                         | `string` | n/a     |   yes    |
-| policypath     | n/a                                         | `string` | `""`    |    no    |
-| role_arn       | Optionally supply an existing role          | `string` | `""`    |    no    |
-| stages         | This list describes each stage of the build | `list`   | n/a     |   yes    |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| artifact\_store | Map to populate the artifact block | `map` | n/a | yes |
+| common\_tags | Implements the common tags scheme | `map` | n/a | yes |
+| description | Description of build project | `string` | n/a | yes |
+| name | n/a | `string` | n/a | yes |
+| policypath | n/a | `string` | `""` | no |
+| role\_arn | Optionally supply an existing role | `string` | `""` | no |
+| stages | This list describes each stage of the build | `list` | n/a | yes |
 
 ## Outputs
 
-| Name     | Description |
-| -------- | ----------- |
-| pipelinr | n/a         |
+| Name | Description |
+|------|-------------|
+| pipelinr | n/a |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
