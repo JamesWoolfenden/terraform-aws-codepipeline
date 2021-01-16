@@ -1,16 +1,16 @@
 terraform {
   required_providers {
     aws = {
-      version = "3.8.0"
+      version = "3.24.1"
       source  = "hashicorp/aws"
     }
 
     local = {
-      version = "1.3"
+      version = "2.0.0"
     }
 
     template = {
-      version = "2.1"
+      version = "2.2.0"
     }
 
   }

@@ -1,10 +1,10 @@
 ---
 # yamllint disable rule:line-length
 default_language_version:
-  python: python3
+  python: python3.8
 repos:
   - repo: git://github.com/pre-commit/pre-commit-hooks
-    rev: v3.2.0
+    rev: v3.4.0
     hooks:
       - id: check-json
       - id: check-merge-conflict
@@ -28,11 +28,11 @@ repos:
     hooks:
       - id: shell-lint
   - repo: git://github.com/igorshubovych/markdownlint-cli
-    rev: v0.23.2
+    rev: v0.26.0
     hooks:
       - id: markdownlint
   - repo: git://github.com/adrienverge/yamllint
-    rev: v1.24.2
+    rev: v1.25.0
     hooks:
       - id: yamllint
         name: yamllint

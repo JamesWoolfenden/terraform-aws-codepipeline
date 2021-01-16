@@ -14,7 +14,7 @@ all: init plan build
 
 init:
 	$(RM)
-	terraform init -reconfigure
+	terraform init -reconfigure -upgrade
 
 plan:
 	terraform plan -refresh=true
@@ -37,7 +37,7 @@ docs:
 	terraform-docs md . > README.md
 
 valid:
-	terraform fmt -check=true -diff=true
+	terraform fmt
 	checkov -d . --external-checks-dir ../../checkov
 
 target:
@@ -46,4 +46,3 @@ target:
 
 purge:
 	$(BLAT)
-	terraform init -reconfigure
