@@ -19,6 +19,7 @@ resource "aws_codepipeline" "pipe" {
       action {
         name             = stage.value.action["name"]
         owner            = stage.value.action["owner"]
+        namespace        = stage.value.action["namespace"]
         version          = stage.value.action["version"]
         category         = stage.value.action["category"]
         provider         = stage.value.action["provider"]
