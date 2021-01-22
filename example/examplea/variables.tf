@@ -9,7 +9,7 @@ variable "role_arn" {
 }
 
 variable "stages" {
-  type        = list
+  type        = list(any)
   description = "This list describes each stage of the build, so it really should be stages."
 }
 
@@ -19,10 +19,7 @@ variable "description" {
 }
 
 variable "common_tags" {
-  type        = map
+  type        = map(any)
   description = "Implements the common tags scheme"
 }
 
-variable "artifact_store" {
-  type = map
-}

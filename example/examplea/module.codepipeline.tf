@@ -1,6 +1,6 @@
 module "codepipeline" {
   source         = "../../"
-  artifact_store = var.artifact_store
+  artifact_store = local.artifact_store
   common_tags    = var.common_tags
   description    = var.description
   name           = var.name

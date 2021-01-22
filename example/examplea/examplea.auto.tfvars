@@ -1,6 +1,3 @@
-artifact_store = {
-  location = "codepipeline-eu-west-1-163714928765"
-type = "S3" }
 description = ""
 name        = "cron-poll"
 stages = [{
@@ -54,5 +51,6 @@ stages = [{
 ]
 
 common_tags = {
-  name = "aws-codebuild-container"
+  name   = "aws-codebuild-container"
+  module = "JamesWoolfenden/codepipeline/aws"
 }
