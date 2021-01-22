@@ -47,13 +47,13 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| artifact\_store | Map to populate the artifact block | `map` | n/a | yes |
-| common\_tags | Implements the common tags scheme | `map` | n/a | yes |
+| artifact\_store | Map to populate the artifact block | `map(any)` | n/a | yes |
+| common\_tags | Implements the common tags scheme | `map(any)` | n/a | yes |
 | description | Description of build project | `string` | n/a | yes |
 | name | n/a | `string` | n/a | yes |
 | policypath | n/a | `string` | `""` | no |
 | role\_arn | Optionally supply an existing role | `string` | `""` | no |
-| stages | This list describes each stage of the build | `list` | n/a | yes |
+| stages | This list describes each stage of the build | `list(any)` | n/a | yes |
 
 ## Outputs
 

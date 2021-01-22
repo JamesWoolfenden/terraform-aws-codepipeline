@@ -31,4 +31,3 @@ resource "aws_codepipeline" "pipe" {
 
   tags = var.common_tags
 }
-

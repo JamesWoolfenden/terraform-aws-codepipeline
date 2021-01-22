@@ -1,6 +1,6 @@
 variable "artifact_store" {
   description = "Map to populate the artifact block"
-  type        = map
+  type        = map(any)
 }
 
 variable "name" {
@@ -14,7 +14,7 @@ variable "role_arn" {
 }
 
 variable "stages" {
-  type        = list
+  type        = list(any)
   description = "This list describes each stage of the build"
 }
 
@@ -24,7 +24,7 @@ variable "description" {
 }
 
 variable "common_tags" {
-  type        = map
+  type        = map(any)
   description = "Implements the common tags scheme"
 }
 
