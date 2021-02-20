@@ -1,7 +1,7 @@
 ---
 # yamllint disable rule:line-length
 default_language_version:
-  python: python3.9
+  python: python3.8
 repos:
   - repo: git://github.com/pre-commit/pre-commit-hooks
     rev: v3.4.0
@@ -16,6 +16,8 @@ repos:
         args:
           - --autofix
       - id: detect-aws-credentials
+        args:
+          - --allow-missing-credentials
       - id: detect-private-key
   - repo: git://github.com/Lucas-C/pre-commit-hooks
     rev: v1.1.9
@@ -41,14 +43,14 @@ repos:
         language: python
         types: [file, yaml]
   - repo: git://github.com/jameswoolfenden/pre-commit
-    rev: v0.1.33
+    rev: v0.1.35
     hooks:
       - id: terraform-fmt
-        language_version: python3.9
+        language_version: python3.8
       - id: tf2docs
-        language_version: python3.9
+        language_version: python3.8
   - repo: git://github.com/bridgecrewio/checkov
-    rev: '1.0.757'
+    rev: 1.0.797
     hooks:
       - id: checkov
         verbose: true
