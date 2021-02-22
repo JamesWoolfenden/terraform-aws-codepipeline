@@ -53,7 +53,16 @@ No requirements.
 | name | n/a | `string` | n/a | yes |
 | policypath | n/a | `string` | `""` | no |
 | role\_arn | Optionally supply an existing role | `string` | `""` | no |
-| stages | This list describes each stage of the build | `list(any)` | n/a | yes |
+| stages | This list describes each stage of the build | `any` | n/a | yes |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| pipeline | The output of the aws\_codepipeline resource |
+| role\_arn | ARN of the pipeline role |
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 'stages' is a list of maps, whose format is :
 
@@ -79,15 +88,6 @@ possible values, please refer to the [AWS documentation](https://docs.aws.amazon
 | role\_arn | If set, ovverrides the global role ARN for this action only | `string` | global value | no |
 | run\_order | Run order | `number` | null | no |
 | region | If set, overrides the default region for this action only | `string` | current region | no |
-
-## Outputs
-
-| Name | Description |
-|------|-------------|
-| pipeline | The output of the aws_codepipeline resource |
-| role_arn | ARN of the pipeline role |
-
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Related Projects
 

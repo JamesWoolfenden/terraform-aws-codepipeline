@@ -12,7 +12,7 @@ resource "aws_codepipeline" "pipe" {
     for_each = [for s in var.stages : {
       name   = s.name
       action = s.action
-    } if (lookup(s, "enabled", true)) ]
+    } if(lookup(s, "enabled", true))]
 
     content {
       name = stage.value.name
