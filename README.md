@@ -55,11 +55,37 @@ No requirements.
 | role\_arn | Optionally supply an existing role | `string` | `""` | no |
 | stages | This list describes each stage of the build | `list(any)` | n/a | yes |
 
+'stages' is a list of maps, whose format is :
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| name | Stage name | `string` | n/a | yes |
+| enabled | If false, this stage will be ignored | `bool` | true | no |
+| action | A map described below | `map` | n/a | yes |
+
+'action' is a map whose format is described below. For more information on
+possible values, please refer to the [AWS documentation](https://docs.aws.amazon.com/codepipeline/latest/userguide/actions.html):
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| name | Name | `string` | n/a | yes |
+| owner | Owner | `string` | n/a | yes |
+| version | Version | `string` | n/a | yes |
+| category | Category | `string` | n/a | yes |
+| provider | Provider | `string` | n/a | yes |
+| input\_artifacts | A list of artifacts declared as output artifacts by other actions | `list(string)` | `[]` | no |
+| output\_artifacts | A list of artifacts to be declared as inputs in other actions | `list(string)` | `[]` | no |
+| configuration | A map whose content depends on the 5 first fields | `map` | `{}` | no |
+| role\_arn | If set, ovverrides the global role ARN for this action only | `string` | global value | no |
+| run\_order | Run order | `number` | null | no |
+| region | If set, overrides the default region for this action only | `string` | current region | no |
+
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| pipelinr | n/a |
+| pipeline | The output of the aws_codepipeline resource |
+| role_arn | ARN of the pipeline role |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 

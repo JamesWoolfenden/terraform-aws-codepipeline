@@ -1,3 +1,3 @@
-output "pipelinr" {
+output "pipeline" {
   value = module.codepipeline
 }

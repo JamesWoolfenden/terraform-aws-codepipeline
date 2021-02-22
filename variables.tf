@@ -14,7 +14,7 @@ variable "role_arn" {
 }
 
 variable "stages" {
-  type        = list(any)
+  type        = any
   description = "This list describes each stage of the build"
 }
 
