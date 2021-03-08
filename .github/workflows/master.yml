@@ -2,11 +2,15 @@
 # yamllint disable rule:line-length
 name: Verify and Bump
 on:
+  schedule:
+    - cron: '00 7 * * SUN'
+  workflow_dispatch:
   push:
     branches:
       - master
 env:
   terraform: 0.14.5
+  terraform-docs: 0.11.2
   tf_target_dir: example/examplea
   branch: master
 jobs:
@@ -43,7 +47,7 @@ jobs:
           python-version: 3.8
       - run: |
           mkdir $GITHUB_WORKSPACE/bin
-          curl -Lo $GITHUB_WORKSPACE/bin/terraform-docs https://github.com/terraform-docs/terraform-docs/releases/download/v0.10.1/terraform-docs-v0.10.1-$(uname)-amd64
+          curl -Lo $GITHUB_WORKSPACE/bin/terraform-docs https://github.com/terraform-docs/terraform-docs/releases/download/v${{ env.terraform-docs }}/terraform-docs-v${{ env.terraform-docs }}-$(uname)-amd64
           chmod +x $GITHUB_WORKSPACE/bin/terraform-docs
           echo "$GITHUB_WORKSPACE/bin" >> $GITHUB_PATH
       - uses: pre-commit/action@v2.0.0
