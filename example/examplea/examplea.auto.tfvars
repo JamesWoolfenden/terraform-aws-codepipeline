@@ -1,21 +1,23 @@
 description = ""
 name        = "cron-poll"
-stages = [{
-  name = "Source"
-  action = {
-    name     = "Source"
-    category = "Source"
-    owner    = "AWS"
-    provider = "CodeCommit"
-    version  = "1"
-    configuration = {
-      BranchName           = "master"
-      PollForSourceChanges = "false"
-      RepositoryName       = "cron-poll"
+stages = [
+  {
+    name = "Source"
+    action = {
+      name     = "Source"
+      category = "Source"
+      owner    = "AWS"
+      provider = "CodeCommit"
+      version  = "1"
+      configuration = {
+        BranchName           = "master"
+        PollForSourceChanges = "false"
+        RepositoryName       = "cron-poll"
+      }
+      input_artifacts  = []
+      output_artifacts = ["SourceArtifact"]
+      run_order        = 1
     }
-    input_artifacts  = []
-    output_artifacts = ["SourceArtifact"]
-  }
   },
   {
     name = "Build"
@@ -27,8 +29,26 @@ stages = [{
       input_artifacts  = ["SourceArtifact"]
       output_artifacts = ["BuildArtifact"]
       version          = "1"
+      run_order        = 2
       configuration = {
         ProjectName = "cron-poll"
+      }
+    }
+  },
+  {
+    name    = "Approval"
+    enabled = var.manual_approval
+    action = {
+      name      = "Approval"
+      category  = "Approval"
+      owner     = "AWS"
+      provider  = "Manual"
+      version   = "1"
+      run_order = 3
+      configuration = {
+        NotificationArn    = var.approval_sns_arn
+        CustomData         = var.approval_comment
+        ExternalEntityLink = var.approval_url
       }
     }
   },
@@ -46,6 +66,7 @@ stages = [{
         ClusterName = "test"
         ServiceName = "cron-poll"
       }
+      run_order = 4
     }
   }
 ]
