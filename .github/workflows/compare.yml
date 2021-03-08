@@ -1,0 +1,117 @@
+---
+# yamllint disable rule:line-length
+name: Compare
+on:
+  schedule:
+    - cron: '00 7 * * SAT'
+  workflow_dispatch:
+
+env:
+  terraform: 0.14.5
+  terraform-docs: 0.11.2
+  tf_target_dir: example/examplea
+  branch: master
+jobs:
+  tfsec:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ env.branch }}
+          token: ${{ github.token }}
+      - name: Terraform security scan
+        uses: triat/terraform-security-scan@v2.0.2
+        with:
+          tfsec_actions_working_dir: ${{ env.tf_target_dir }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        continue-on-error: true
+  checkov:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ env.branch }}
+          token: ${{ github.token }}
+      - name: Run Checkov action
+        id: checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: ${{ env.tf_target_dir }}
+          output_format: json
+        continue-on-error: true
+  terrascan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ env.branch }}
+          token: ${{ github.token }}
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: install terrascan
+        run: |
+          pip3 install lastversion
+          now=$(lastversion accurics/terrascan)
+          curl --location https://github.com/accurics/terrascan/releases/download/v${now}/terrascan_${now}_Linux_x86_64.tar.gz --output terrascan.tar.gz
+          tar -xvf terrascan.tar.gz
+      - name: run terrascan
+        run: ./terrascan scan -d  ${{ env.tf_target_dir }} -o json -x json >terrascan.json
+        continue-on-error: true
+      - name: store
+        uses: actions/upload-artifact@v2
+        with:
+          name: terrascan
+          path: terrascan.json
+          if-no-files-found: error
+  kics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ env.branch }}
+          token: ${{ github.token }}
+      - name: run kics Scan
+        uses: checkmarx/kics-action@v1.0
+        with:
+          path: ${{ env.tf_target_dir }}
+          output_path: 'kics.json'
+        continue-on-error: true
+      - name: store
+        uses: actions/upload-artifact@v2
+        with:
+          name: kics
+          path: kics.json
+          if-no-files-found: error
+
+  upload:
+    needs: [kics, terrascan, checkov, tfsec]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Time
+        id: time
+        uses: nanzm/get-time-action@v1.1
+        with:
+          timeZone: 8
+          format: 'YYYY-MM-DD-HH-mm-ss'
+      - name: mkdir
+        run: |
+          mkdir  tos3
+      - uses: actions/download-artifact@v2
+        with:
+          path: tos3
+      - uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: compare-data-680235478471
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_KEY }}
+          AWS_REGION: 'eu-west-2'
+          SOURCE_DIR: tos3
+          DEST_DIR: ${{ github.repository }}/${{ steps.time.outputs.time }}
