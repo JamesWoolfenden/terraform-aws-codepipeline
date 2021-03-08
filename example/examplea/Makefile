@@ -18,7 +18,12 @@ init:
 	terraform init -reconfigure -upgrade
 
 plan:
-	terraform plan -refresh=true
+	terraform plan --out tfplan.binary -refresh=true
+
+planned: init
+	terraform plan -out tf.plan
+	terraform show -json tf.plan  > tf.json
+	checkov -f tf.json
 
 p:
 	terraform plan -refresh=true
@@ -27,6 +32,9 @@ apply: build
 
 build:
 	terraform apply -auto-approve
+
+convert:
+	terraform show -json tfplan.binary > tfplan.json
 
 check: init
 	terraform plan -detailed-exitcode
@@ -38,10 +46,25 @@ docs:
 	terraform-docs md . > README.md
 
 valid:
-	terraform fmt -recursive
-	checkov -d . --external-checks-dir ../../checkov
-	tfsec .
-	terrascan scan
+	-terraform fmt -recursive
+	-checkov -d . --external-checks-dir ../../checkov
+	-tfsec .
+	-terrascan scan
+	docker pull checkmarx/kics:latest
+	docker run -v $(CURDIR):/path checkmarx/kics:latest -p "/path"
+
+compare:
+	-checkov -d . --external-checks-dir ../../checkov -o json >../../output/checkov.json
+	-terrascan scan -o json -x json >../../output/terrascan.json
+	-tfsec . --out ../../output/tfsec.json -f json -s
+	docker pull checkmarx/kics:latest
+	docker run -v $(CURDIR):/path -v $(CURDIR)/../../output:/output checkmarx/kics:latest -p "/path" -o "/output/kics.json"
+
+conftest: plan convert
+	conftest test ./tfplan.json -p ../../policies
+
+opa: plan convert
+	opa eval --format pretty --data terraform.rego --input tfplan.json "data.terraform.analysis.authz"
 
 target:
 	@read -p "Enter Module to target:" MODULE;
