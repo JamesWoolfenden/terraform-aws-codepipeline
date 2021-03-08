@@ -29,8 +29,9 @@ repos:
     rev: 0.0.2
     hooks:
       - id: shell-lint
+        exclude: template|\.template$
   - repo: git://github.com/igorshubovych/markdownlint-cli
-    rev: v0.26.0
+    rev: v0.27.1
     hooks:
       - id: markdownlint
   - repo: git://github.com/adrienverge/yamllint
@@ -50,8 +51,8 @@ repos:
       - id: tf2docs
         language_version: python3.8
   - repo: git://github.com/bridgecrewio/checkov
-    rev: 1.0.797
+    rev: 1.0.825
     hooks:
       - id: checkov
         verbose: true
-        entry: checkov -d example/examplea
+        entry: checkov -d example/examplea --external-checks-dir checkov
