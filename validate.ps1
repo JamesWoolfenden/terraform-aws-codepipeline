@@ -1,5 +1,6 @@
 #!/usr/bin/env pwsh
 $ErrorActionPreference ="Stop"
+terraform fmt --recursive
 Push-Location
 Set-Location example/examplea
 Remove-Item .terraform -Recurse -ErrorAction SilentlyContinue
