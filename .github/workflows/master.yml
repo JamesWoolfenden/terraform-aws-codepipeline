@@ -3,13 +3,13 @@
 name: Verify and Bump
 on:
   schedule:
-    - cron: '00 7 * * SUN'
+    - cron: "00 7 * * SUN"
   workflow_dispatch:
   push:
     branches:
       - master
 env:
-  terraform: 0.14.5
+  terraform: 0.14.8
   terraform-docs: 0.11.2
   tf_target_dir: example/examplea
   branch: master

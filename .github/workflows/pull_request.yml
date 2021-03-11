@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  terraform: 0.14.5
+  terraform: 0.14.8
   terraform-docs: 0.11.2
   tf_target_dir: example/examplea
 
