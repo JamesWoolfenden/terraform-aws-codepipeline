@@ -1,4 +1,9 @@
 data "aws_iam_policy_document" "pipeline" {
+  #checkov:skip=CKV_AWS_108
+  #checkov:skip=CKV_AWS_109
+  #checkov:skip=CKV_AWS_110
+  #checkov:skip=CKV_AWS_111
+
   statement {
     actions = [
       "iam:PassRole"
