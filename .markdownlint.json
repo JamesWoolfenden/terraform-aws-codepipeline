@@ -2,7 +2,8 @@
   "MD013": false,
   "MD033": {
     "allowed_elements": [
-      "br"
+      "br",
+      "a"
     ]
   },
   "MD034": false,
