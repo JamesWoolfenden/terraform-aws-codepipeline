@@ -6,7 +6,7 @@
 # Module directory
 .terraform/
 .terraform
-.plugins/
+.plugins
 __pycache__/
 .vscode/
 .idea
