@@ -1,4 +1,7 @@
+
 resource "aws_s3_bucket" "codepipeline" {
+  # tfsec:ignore:AWS077
+  # tfsec:ignore:AWS002
   # checkov:skip=CKV_AWS_145: ADD REASON
   # checkov:skip=CKV_AWS_144: ADD REASON
   # checkov:skip=CKV_AWS_21: "Ensure all data stored in the S3 bucket have versioning enabled"
