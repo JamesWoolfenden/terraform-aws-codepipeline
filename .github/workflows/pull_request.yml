@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  terraform: 0.14.8
+  terraform: 0.15.0
   tf_target_dir: example/examplea
 
 jobs:
@@ -41,9 +41,10 @@ jobs:
           python-version: 3.8
       - run: |
           pip3 install lastversion
-          now=$(lastversion terraform-docs/terraform-docs)
+          now=$(lastversion terraform-docs)
           mkdir $GITHUB_WORKSPACE/bin
-          curl -Lo $GITHUB_WORKSPACE/bin/terraform-docs https://github.com/terraform-docs/terraform-docs/releases/download/v${now}/terraform-docs-v${now}-$(uname)-amd64
+          curl -L https://github.com/terraform-docs/terraform-docs/releases/download/v${now}/terraform-docs-v${now}-$(uname)-amd64.tar.gz -o terraform-docs.tar.gz
+          tar -xvf terraform-docs.tar.gz --directory $GITHUB_WORKSPACE/bin
           chmod +x $GITHUB_WORKSPACE/bin/terraform-docs
           echo "$GITHUB_WORKSPACE/bin" >> $GITHUB_PATH
       - uses: pre-commit/action@v2.0.0
