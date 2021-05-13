@@ -8,4 +8,5 @@ Remove-Item .terraform.lock.hcl -ErrorAction SilentlyContinue
 terraform init -upgrade
 terraform validate
 make valid
+make cost
 Pop-Location
