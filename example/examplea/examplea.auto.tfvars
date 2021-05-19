@@ -36,23 +36,6 @@ stages = [
     }
   },
   {
-    name    = "Approval"
-    enabled = var.manual_approval
-    action = {
-      name      = "Approval"
-      category  = "Approval"
-      owner     = "AWS"
-      provider  = "Manual"
-      version   = "1"
-      run_order = 3
-      configuration = {
-        NotificationArn    = var.approval_sns_arn
-        CustomData         = var.approval_comment
-        ExternalEntityLink = var.approval_url
-      }
-    }
-  },
-  {
     name = "Deploy"
     action = {
       name             = "Deploy"

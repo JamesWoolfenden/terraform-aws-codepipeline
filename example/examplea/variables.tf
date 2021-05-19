@@ -28,20 +28,3 @@ variable "manual_approval" {
   description = "Whether deployment requires manual approval or not"
   default     = false
 }
-
-variable "approval_sns_arn" {
-  type        = string
-  description = "ARN of SNS channel approval notification will be sent to"
-}
-
-variable "approval_comment" {
-  type        = string
-  description = "Optional approval message"
-  default     = ""
-}
-
-variable "approval_url" {
-  type        = string
-  description = "Optional URL to include in approval message"
-  default     = ""
-}
