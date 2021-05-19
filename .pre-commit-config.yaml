@@ -4,7 +4,7 @@ default_language_version:
   python: python3.8
 repos:
   - repo: git://github.com/pre-commit/pre-commit-hooks
-    rev: v3.4.0
+    rev: v4.0.1
     hooks:
       - id: check-json
       - id: check-merge-conflict
@@ -51,13 +51,13 @@ repos:
       - id: tf2docs
         language_version: python3.8
   - repo: git://github.com/bridgecrewio/checkov
-    rev: 2.0.139
+    rev: 2.0.149
     hooks:
       - id: checkov
         verbose: true
         entry: checkov -d example/examplea --external-checks-dir checkov
   - repo: git://github.com/tfsec/tfsec
-    rev: v0.39.33
+    rev: v0.39.34
     hooks:
       - id: tfsec
         entry: tfsec
