@@ -23,7 +23,7 @@ Include this repository as a module in your existing Terraform code:
 ```hcl
 module "codepipeline" {
   source         = "JamesWoolfenden/codepipeline/aws"
-  version        = "0.3.12"
+  version        = "0.4.21"
   artifact_store = var.artifact_store
   common_tags    = var.common_tags
   description    = var.description
@@ -32,6 +32,81 @@ module "codepipeline" {
 }
 ```
 
+## Costs
+
+From infracost: make cost Makefile target in *example/examplea*
+
+```md
+✔ Calculating monthly cost estimate
+
+Project: .
+
+ Name                                       Monthly Qty  Unit         Monthly Cost
+
+ aws_s3_bucket.codepipeline
+ ├─ Glacier deep archive
+ │  ├─ Storage                                        0  GB-months           $0.00
+ │  ├─ PUT, COPY, POST, LIST requests                 0  1k requests         $0.00
+ │  ├─ GET, SELECT, and all other requests            0  1k requests         $0.00
+ │  ├─ Lifecycle transition                           0  1k requests         $0.00
+ │  ├─ Retrieval requests (standard)                  0  1k requests         $0.00
+ │  ├─ Retrievals (standard)                          0  GB-months           $0.00
+ │  ├─ Retrieval requests (bulk)                      0  1k requests         $0.00
+ │  ├─ Retrievals (bulk)                              0  GB-months           $0.00
+ │  └─ Early delete (within 180 days)                 0  GB-months           $0.00
+ ├─ Standard
+ │  ├─ Storage                                        0  GB-months           $0.00
+ │  ├─ PUT, COPY, POST, LIST requests                 0  1k requests         $0.00
+ │  ├─ GET, SELECT, and all other requests            0  1k requests         $0.00
+ │  ├─ Select data scanned                            0  GB-months           $0.00
+ │  └─ Select data returned                           0  GB-months           $0.00
+ ├─ Intelligent tiering
+ │  ├─ Storage (frequent access)                      0  GB-months           $0.00
+ │  ├─ Storage (infrequent access)                    0  GB-months           $0.00
+ │  ├─ Monitoring and automation                      0  1k objects          $0.00
+ │  ├─ PUT, COPY, POST, LIST requests                 0  1k requests         $0.00
+ │  ├─ GET, SELECT, and all other requests            0  1k requests         $0.00
+ │  ├─ Lifecycle transition                           0  1k requests         $0.00
+ │  ├─ Select data scanned                            0  GB-months           $0.00
+ │  ├─ Select data returned                           0  GB-months           $0.00
+ │  └─ Early delete (within 30 days)                  0  GB-months           $0.00
+ ├─ Standard - infrequent access
+ │  ├─ Storage                                        0  GB-months           $0.00
+ │  ├─ PUT, COPY, POST, LIST requests                 0  1k requests         $0.00
+ │  ├─ GET, SELECT, and all other requests            0  1k requests         $0.00
+ │  ├─ Lifecycle transition                           0  1k requests         $0.00
+ │  ├─ Retrievals                                     0  GB-months           $0.00
+ │  ├─ Select data scanned                            0  GB-months           $0.00
+ │  └─ Select data returned                           0  GB-months           $0.00
+ ├─ One zone - infrequent access
+ │  ├─ Storage                                        0  GB-months           $0.00
+ │  ├─ PUT, COPY, POST, LIST requests                 0  1k requests         $0.00
+ │  ├─ GET, SELECT, and all other requests            0  1k requests         $0.00
+ │  ├─ Lifecycle transition                           0  1k requests         $0.00
+ │  ├─ Retrievals                                     0  GB-months           $0.00
+ │  ├─ Select data scanned                            0  GB-months           $0.00
+ │  └─ Select data returned                           0  GB-months           $0.00
+ └─ Glacier
+    ├─ Storage                                        0  GB-months           $0.00
+    ├─ PUT, COPY, POST, LIST requests                 0  1k requests         $0.00
+    ├─ GET, SELECT, and all other requests            0  1k requests         $0.00
+    ├─ Lifecycle transition                           0  1k requests         $0.00
+    ├─ Retrieval requests (standard)                  0  1k requests         $0.00
+    ├─ Retrievals (standard)                          0  GB-months           $0.00
+    ├─ Select data scanned (standard)                 0  GB-months           $0.00
+    ├─ Select data returned (standard)                0  GB-months           $0.00
+    ├─ Retrieval requests (expedited)                 0  1k requests         $0.00
+    ├─ Retrievals (expedited)                         0  GB-months           $0.00
+    ├─ Select data scanned (expedited)                0  GB-months           $0.00
+    ├─ Select data returned (expedited)               0  GB-months           $0.00
+    ├─ Retrieval requests (bulk)                      0  1k requests         $0.00
+    ├─ Retrievals (bulk)                              0  GB-months           $0.00
+    ├─ Select data scanned (bulk)                     0  GB-months           $0.00
+    ├─ Select data returned (bulk)                    0  GB-months           $0.00
+    └─ Early delete (within 90 days)                  0  GB-months           $0.00
+
+ PROJECT TOTAL                                                               $0.00
+```
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
