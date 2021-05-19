@@ -7,7 +7,6 @@ on:
   workflow_dispatch:
 
 env:
-  terraform: 0.15.0
   tf_target_dir: example/examplea
   branch: master
 jobs:
@@ -22,8 +21,7 @@ jobs:
       - name: tfsec
         run: |
           pip3 install lastversion
-          now=$(lastversion tfsec/tfsec)
-          wget "https://github.com/tfsec/tfsec/releases/download/v${now}/tfsec-linux-amd64"
+          lastversion tfsec/tfsec --assets -d
           chmod +x tfsec-linux-amd64
           ./tfsec-linux-amd64 ${{ env.tf_target_dir }} -f json --out tfsec.json
         continue-on-error: true
@@ -67,18 +65,20 @@ jobs:
       - name: install terrascan
         run: |
           pip3 install lastversion
-          now=$(lastversion accurics/terrascan)
-          curl --location https://github.com/accurics/terrascan/releases/download/v${now}/terrascan_${now}_Linux_x86_64.tar.gz --output terrascan.tar.gz
-          tar -xvf terrascan.tar.gz
+          lastversion accurics/terrascan --assets -d --verbose
+          tar -xvf terrascan*.tar.gz
+          chmod +x ./terrascan
       - name: run terrascan
-        run: ./terrascan scan -d  ${{ env.tf_target_dir }} -o json -x json >terrascan.json
+        run: |
+          ./terrascan init
+          ./terrascan scan -d  ${{ env.tf_target_dir }} -o json -x json | tee terrascan.json
         continue-on-error: true
       - name: store
         uses: actions/upload-artifact@v2
         with:
           name: terrascan
           path: terrascan.json
-          if-no-files-found: error
+          if-no-files-found: warn
   kics:
     runs-on: ubuntu-latest
     steps:
@@ -87,18 +87,20 @@ jobs:
         with:
           ref: ${{ env.branch }}
           token: ${{ github.token }}
-      - name: run kics Scan
-        uses: checkmarx/kics-action@v1.0
-        with:
-          path: ${{ env.tf_target_dir }}
-          output_path: "kics.json"
+      - name: install kics
+        run: |
+          pip3 install lastversion
+          lastversion Checkmarx/kics --assets -d --verbose
+          tar -xvf kics*.tar.gz
+      - name: run kics
+        run: ./kics scan -p  ${{ env.tf_target_dir }} -o kics.json --report-formats json
         continue-on-error: true
       - name: store
         uses: actions/upload-artifact@v2
         with:
           name: kics
           path: kics.json
-          if-no-files-found: error
+          if-no-files-found: warn
 
   upload:
     needs: [kics, terrascan, checkov, tfsec]
