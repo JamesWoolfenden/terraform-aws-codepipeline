@@ -5,10 +5,6 @@ on:
   schedule:
     - cron: "00 7 * * SAT"
   workflow_dispatch:
-
-env:
-  tf_target_dir: example/examplea
-  branch: master
 jobs:
   tfsec:
     runs-on: ubuntu-latest
@@ -16,14 +12,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: ${{ env.branch }}
+          ref: master
           token: ${{ github.token }}
       - name: tfsec
         run: |
           pip3 install lastversion
           lastversion tfsec/tfsec --assets -d
           chmod +x tfsec-linux-amd64
-          ./tfsec-linux-amd64 ${{ env.tf_target_dir }} -f json --out tfsec.json
+          ./tfsec-linux-amd64 example/examplea -f json --out tfsec.json
         continue-on-error: true
       - name: store
         uses: actions/upload-artifact@v2
@@ -37,13 +33,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: ${{ env.branch }}
+          ref: master
           token: ${{ github.token }}
       - name: install checkov
         run: |
           pip3 install checkov
       - name: run checkov
-        run: checkov -d  ${{ env.tf_target_dir }} -o json | tee checkov.json
+        run: checkov -d  example/examplea -o json | tee checkov.json
         continue-on-error: true
       - name: store
         uses: actions/upload-artifact@v2
@@ -57,7 +53,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: ${{ env.branch }}
+          ref: master
           token: ${{ github.token }}
       - uses: actions/setup-python@v2
         with:
@@ -71,7 +67,7 @@ jobs:
       - name: run terrascan
         run: |
           ./terrascan init
-          ./terrascan scan -d  ${{ env.tf_target_dir }} -o json -x json | tee terrascan.json
+          ./terrascan scan -d  example/examplea -o json -x json | tee terrascan.json
         continue-on-error: true
       - name: store
         uses: actions/upload-artifact@v2
@@ -85,7 +81,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: ${{ env.branch }}
+          ref: master
           token: ${{ github.token }}
       - name: install kics
         run: |
@@ -93,7 +89,7 @@ jobs:
           lastversion Checkmarx/kics --assets -d --verbose
           tar -xvf kics*.tar.gz
       - name: run kics
-        run: ./kics scan -p  ${{ env.tf_target_dir }} -o kics.json --report-formats json
+        run: ./kics scan -p  example/examplea -o kics.json --report-formats json
         continue-on-error: true
       - name: store
         uses: actions/upload-artifact@v2
