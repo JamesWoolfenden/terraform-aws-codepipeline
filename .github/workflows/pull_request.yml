@@ -5,10 +5,6 @@ on:
   pull_request:
   workflow_dispatch:
 
-env:
-  terraform: 0.15.0
-  tf_target_dir: example/examplea
-
 jobs:
   terraform:
     runs-on: ubuntu-latest
@@ -20,21 +16,21 @@ jobs:
       - name: Terraform Init
         uses: hashicorp/terraform-github-actions@master
         with:
-          tf_actions_version: ${{ env.terraform }}
+          tf_actions_version: 1.0
           tf_actions_subcommand: init
-          tf_actions_working_dir: ${{ env.tf_target_dir }}
+          tf_actions_working_dir: example/examplea
       - name: Terraform Validate
         uses: hashicorp/terraform-github-actions@master
         with:
-          tf_actions_version: ${{ env.terraform }}
+          tf_actions_version: 1.0
           tf_actions_subcommand: validate
-          tf_actions_working_dir: ${{ env.tf_target_dir }}
+          tf_actions_working_dir: example/examplea
       - name: Terraform Plan
         uses: hashicorp/terraform-github-actions@master
         with:
-          tf_actions_version: ${{ env.terraform }}
+          tf_actions_version: 1.0
           tf_actions_subcommand: plan
-          tf_actions_working_dir: ${{ env.tf_target_dir }}
+          tf_actions_working_dir: example/examplea
         env:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_KEY }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -66,12 +62,12 @@ jobs:
         uses: infracost/infracost-gh-action@master # Use a specific version instead of master if locking is preferred
         env:
           INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Do not change
+          GITHUB_TOKEN: ${{ github.token }} # Do not change
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_KEY }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           # See the cloud credentials section for the options
         with:
           entrypoint: /scripts/ci/diff.sh # Do not change
-          path: ${{ env.tf_target_dir }}
-          usage_file: ${{ env.tf_target_dir }}/infracost-usage.yml
+          path: example/examplea
+          usage_file: example/examplea/infracost-usage.yml
           #terraform_plan_flags: -var-file=my.tfvars
