@@ -8,10 +8,6 @@ on:
   push:
     branches:
       - master
-env:
-  terraform: 0.15.0
-  tf_target_dir: example/examplea
-  branch: master
 jobs:
   terraform:
     runs-on: ubuntu-latest
@@ -19,40 +15,39 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: ${{ env.branch }}
+          ref: master
           token: ${{ github.token }}
+      - name: Config Terraform plugin cache
+        run: |
+          echo 'plugin_cache_dir="$HOME/.terraform.d/plugin-cache"' >~/.terraformrc
+          mkdir --parents ~/.terraform.d/plugin-cache
+      - name: Cache Terraform
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.terraform.d/plugin-cache
+          key: ${{ runner.os }}-terraform-${{ hashFiles('**/.terraform.lock.hcl') }}
+          restore-keys: |
+            ${{ runner.os }}-terraform-
       - name: Terraform Init
         uses: hashicorp/terraform-github-actions@master
         with:
-          tf_actions_version: ${{ env.terraform }}
+          tf_actions_version: 1.0
           tf_actions_subcommand: init
-          tf_actions_working_dir: ${{ env.tf_target_dir }}
+          tf_actions_working_dir: example/examplea
       - name: Terraform Validate
         uses: hashicorp/terraform-github-actions@master
         with:
-          tf_actions_version: ${{ env.terraform }}
+          tf_actions_version: 1.0
           tf_actions_subcommand: validate
-          tf_actions_working_dir: ${{ env.tf_target_dir }}
+          tf_actions_working_dir: example/examplea
       - name: Terraform Plan
         uses: hashicorp/terraform-github-actions@master
         with:
-          tf_actions_version: ${{ env.terraform }}
+          tf_actions_version: 1.0
           tf_actions_subcommand: plan
-          tf_actions_working_dir: ${{ env.tf_target_dir }}
+          tf_actions_working_dir: example/examplea
         env:
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_KEY }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      - name: Bills
-        run: |
-          pip3 install lastversion
-          lastversion infracost --assets -d --verbose
-          mkdir $GITHUB_WORKSPACE/bin
-          tar -xvf infracost*.tar.gz --directory $GITHUB_WORKSPACE/bin
-          chmod +x $GITHUB_WORKSPACE/bin/infracost-linux-amd64
-          $GITHUB_WORKSPACE/bin/infracost-linux-amd64 breakdown --path ${{ env.tf_target_dir }} --usage-file ${{ env.tf_target_dir }}/infracost-usage.yml
-        env:
-          INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Do not change
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_KEY }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   security:
@@ -61,7 +56,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: ${{ env.branch }}
+          ref: master
           token: ${{ github.token }}
       - uses: actions/setup-python@v2
         with:
@@ -82,7 +77,7 @@ jobs:
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
           DEFAULT_BUMP: patch
           WITH_V: "true"
     needs: [terraform, security]
