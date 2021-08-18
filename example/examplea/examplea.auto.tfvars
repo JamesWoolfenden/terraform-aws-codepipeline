@@ -3,7 +3,7 @@ name        = "cron-poll"
 stages = [
   {
     name = "Source"
-    action = {
+    action = [{
       name     = "Source"
       category = "Source"
       owner    = "AWS"
@@ -17,11 +17,11 @@ stages = [
       input_artifacts  = []
       output_artifacts = ["SourceArtifact"]
       run_order        = 1
-    }
+    }]
   },
   {
     name = "Build"
-    action = {
+    action = [{
       name             = "Build"
       category         = "Build"
       owner            = "AWS"
@@ -33,11 +33,11 @@ stages = [
       configuration = {
         ProjectName = "cron-poll"
       }
-    }
+    }]
   },
   {
     name = "Deploy"
-    action = {
+    action = [{
       name             = "Deploy"
       category         = "Deploy"
       owner            = "AWS"
@@ -50,7 +50,7 @@ stages = [
         ServiceName = "cron-poll"
       }
       run_order = 4
-    }
+    }]
   }
 ]
 

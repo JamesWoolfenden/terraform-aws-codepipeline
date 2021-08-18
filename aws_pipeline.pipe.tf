@@ -16,18 +16,21 @@ resource "aws_codepipeline" "pipe" {
 
     content {
       name = stage.value.name
-      action {
-        name             = stage.value.action["name"]
-        owner            = stage.value.action["owner"]
-        version          = stage.value.action["version"]
-        category         = stage.value.action["category"]
-        provider         = stage.value.action["provider"]
-        input_artifacts  = lookup(stage.value.action, "input_artifacts", [])
-        output_artifacts = lookup(stage.value.action, "output_artifacts", [])
-        configuration    = lookup(stage.value.action, "configuration", {})
-        role_arn         = lookup(stage.value.action, "role_arn", null)
-        run_order        = lookup(stage.value.action, "run_order", null)
-        region           = lookup(stage.value.action, "region", data.aws_region.current.name)
+      dynamic "action" {
+        for_each = stage.value.action
+        content {
+          name             = action.value["name"]
+          owner            = action.value["owner"]
+          version          = action.value["version"]
+          category         = action.value["category"]
+          provider         = action.value["provider"]
+          input_artifacts  = lookup(action.value, "input_artifacts", [])
+          output_artifacts = lookup(action.value, "output_artifacts", [])
+          configuration    = lookup(action.value, "configuration", {})
+          role_arn         = lookup(action.value, "role_arn", null)
+          run_order        = lookup(action.value, "run_order", null)
+          region           = lookup(action.value, "region", data.aws_region.current.name)
+        }
       }
     }
   }
