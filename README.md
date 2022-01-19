@@ -142,7 +142,7 @@ No modules.
 | <a name="input_name"></a> [name](#input\_name) | n/a | `string` | n/a | yes |
 | <a name="input_policypath"></a> [policypath](#input\_policypath) | n/a | `string` | `""` | no |
 | <a name="input_role_arn"></a> [role\_arn](#input\_role\_arn) | Optionally supply an existing role | `string` | `""` | no |
-| <a name="input_stages"></a> [stages](#input\_stages) | This list describes each stage of the build | `any` | n/a | yes |
+| <a name="input_stages"></a> [stages](#input\_stages) | This list describes each stage of the build | `list(any)` | n/a | yes |
 
 ## Outputs
 
