@@ -109,16 +109,15 @@ PROJECT TOTAL $0.00
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
 ## Requirements
 
 No requirements.
 
 ## Providers
 
-| Name                                             | Version |
-| ------------------------------------------------ | ------- |
-| <a name="provider_aws"></a> [aws](#provider_aws) | n/a     |
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
 
 ## Modules
 
@@ -126,34 +125,33 @@ No modules.
 
 ## Resources
 
-| Name                                                                                                                                   | Type        |
-| -------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| [aws_codepipeline.pipe](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codepipeline)                      | resource    |
-| [aws_iam_role.pipeline](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role)                          | resource    |
-| [aws_iam_role_policy.inline_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy)       | resource    |
+| Name | Type |
+|------|------|
+| [aws_codepipeline.pipe](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codepipeline) | resource |
+| [aws_iam_role.pipeline](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy.inline_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
 | [aws_iam_policy_document.pipeline](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region)                            | data source |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
 ## Inputs
 
-| Name                                                                        | Description                                 | Type        | Default | Required |
-| --------------------------------------------------------------------------- | ------------------------------------------- | ----------- | ------- | :------: |
-| <a name="input_artifact_store"></a> [artifact_store](#input_artifact_store) | Map to populate the artifact block          | `map(any)`  | n/a     |   yes    |
-| <a name="input_common_tags"></a> [common_tags](#input_common_tags)          | Implements the common tags scheme           | `map(any)`  | n/a     |   yes    |
-| <a name="input_description"></a> [description](#input_description)          | Description of build project                | `string`    | n/a     |   yes    |
-| <a name="input_name"></a> [name](#input_name)                               | n/a                                         | `string`    | n/a     |   yes    |
-| <a name="input_policypath"></a> [policypath](#input_policypath)             | n/a                                         | `string`    | `""`    |    no    |
-| <a name="input_role_arn"></a> [role_arn](#input_role_arn)                   | Optionally supply an existing role          | `string`    | `""`    |    no    |
-| <a name="input_stages"></a> [stages](#input_stages)                         | This list describes each stage of the build | `list(any)` | n/a     |   yes    |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_artifact_store"></a> [artifact\_store](#input\_artifact\_store) | Map to populate the artifact block | `map(any)` | n/a | yes |
+| <a name="input_common_tags"></a> [common\_tags](#input\_common\_tags) | Implements the common tags scheme | `map(any)` | n/a | yes |
+| <a name="input_description"></a> [description](#input\_description) | Description of build project | `string` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | n/a | `string` | n/a | yes |
+| <a name="input_policypath"></a> [policypath](#input\_policypath) | n/a | `string` | `""` | no |
+| <a name="input_role_arn"></a> [role\_arn](#input\_role\_arn) | Optionally supply an existing role | `string` | `""` | no |
+| <a name="input_stages"></a> [stages](#input\_stages) | This list describes each stage of the build | `list(any)` | n/a | yes |
 
 ## Outputs
 
-| Name                                                           | Description                                                       |
-| -------------------------------------------------------------- | ----------------------------------------------------------------- |
-| <a name="output_pipeline"></a> [pipeline](#output_pipeline)    | The output of the aws_codepipeline resource                       |
-| <a name="output_role_arn"></a> [role_arn](#output_role_arn)    | ARN of the pipeline role                                          |
-| <a name="output_role_name"></a> [role_name](#output_role_name) | Name of the pipeline role created if var.role_arn is not supplied |
-
+| Name | Description |
+|------|-------------|
+| <a name="output_pipeline"></a> [pipeline](#output\_pipeline) | The output of the aws\_codepipeline resource |
+| <a name="output_role_arn"></a> [role\_arn](#output\_role\_arn) | ARN of the pipeline role |
+| <a name="output_role_name"></a> [role\_name](#output\_role\_name) | Name of the pipeline role created if var.role\_arn is not supplied |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 'stages' is a list of maps, whose format is :
