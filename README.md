@@ -34,89 +34,91 @@ module "codepipeline" {
 
 ## Costs
 
-From infracost: make cost Makefile target in *example/examplea*
+From infracost: make cost Makefile target in _example/examplea_
 
 ```md
 ✔ Calculating monthly cost estimate
 
 Project: .
 
- Name                                       Monthly Qty  Unit         Monthly Cost
+Name Monthly Qty Unit Monthly Cost
 
- aws_s3_bucket.codepipeline
- ├─ Glacier deep archive
- │  ├─ Storage                                        0  GB-months           $0.00
- │  ├─ PUT, COPY, POST, LIST requests                 0  1k requests         $0.00
- │  ├─ GET, SELECT, and all other requests            0  1k requests         $0.00
- │  ├─ Lifecycle transition                           0  1k requests         $0.00
- │  ├─ Retrieval requests (standard)                  0  1k requests         $0.00
- │  ├─ Retrievals (standard)                          0  GB-months           $0.00
- │  ├─ Retrieval requests (bulk)                      0  1k requests         $0.00
- │  ├─ Retrievals (bulk)                              0  GB-months           $0.00
- │  └─ Early delete (within 180 days)                 0  GB-months           $0.00
- ├─ Standard
- │  ├─ Storage                                        0  GB-months           $0.00
- │  ├─ PUT, COPY, POST, LIST requests                 0  1k requests         $0.00
- │  ├─ GET, SELECT, and all other requests            0  1k requests         $0.00
- │  ├─ Select data scanned                            0  GB-months           $0.00
- │  └─ Select data returned                           0  GB-months           $0.00
- ├─ Intelligent tiering
- │  ├─ Storage (frequent access)                      0  GB-months           $0.00
- │  ├─ Storage (infrequent access)                    0  GB-months           $0.00
- │  ├─ Monitoring and automation                      0  1k objects          $0.00
- │  ├─ PUT, COPY, POST, LIST requests                 0  1k requests         $0.00
- │  ├─ GET, SELECT, and all other requests            0  1k requests         $0.00
- │  ├─ Lifecycle transition                           0  1k requests         $0.00
- │  ├─ Select data scanned                            0  GB-months           $0.00
- │  ├─ Select data returned                           0  GB-months           $0.00
- │  └─ Early delete (within 30 days)                  0  GB-months           $0.00
- ├─ Standard - infrequent access
- │  ├─ Storage                                        0  GB-months           $0.00
- │  ├─ PUT, COPY, POST, LIST requests                 0  1k requests         $0.00
- │  ├─ GET, SELECT, and all other requests            0  1k requests         $0.00
- │  ├─ Lifecycle transition                           0  1k requests         $0.00
- │  ├─ Retrievals                                     0  GB-months           $0.00
- │  ├─ Select data scanned                            0  GB-months           $0.00
- │  └─ Select data returned                           0  GB-months           $0.00
- ├─ One zone - infrequent access
- │  ├─ Storage                                        0  GB-months           $0.00
- │  ├─ PUT, COPY, POST, LIST requests                 0  1k requests         $0.00
- │  ├─ GET, SELECT, and all other requests            0  1k requests         $0.00
- │  ├─ Lifecycle transition                           0  1k requests         $0.00
- │  ├─ Retrievals                                     0  GB-months           $0.00
- │  ├─ Select data scanned                            0  GB-months           $0.00
- │  └─ Select data returned                           0  GB-months           $0.00
- └─ Glacier
-    ├─ Storage                                        0  GB-months           $0.00
-    ├─ PUT, COPY, POST, LIST requests                 0  1k requests         $0.00
-    ├─ GET, SELECT, and all other requests            0  1k requests         $0.00
-    ├─ Lifecycle transition                           0  1k requests         $0.00
-    ├─ Retrieval requests (standard)                  0  1k requests         $0.00
-    ├─ Retrievals (standard)                          0  GB-months           $0.00
-    ├─ Select data scanned (standard)                 0  GB-months           $0.00
-    ├─ Select data returned (standard)                0  GB-months           $0.00
-    ├─ Retrieval requests (expedited)                 0  1k requests         $0.00
-    ├─ Retrievals (expedited)                         0  GB-months           $0.00
-    ├─ Select data scanned (expedited)                0  GB-months           $0.00
-    ├─ Select data returned (expedited)               0  GB-months           $0.00
-    ├─ Retrieval requests (bulk)                      0  1k requests         $0.00
-    ├─ Retrievals (bulk)                              0  GB-months           $0.00
-    ├─ Select data scanned (bulk)                     0  GB-months           $0.00
-    ├─ Select data returned (bulk)                    0  GB-months           $0.00
-    └─ Early delete (within 90 days)                  0  GB-months           $0.00
+aws_s3_bucket.codepipeline
+├─ Glacier deep archive
+│ ├─ Storage 0 GB-months $0.00
+│ ├─ PUT, COPY, POST, LIST requests 0 1k requests $0.00
+│ ├─ GET, SELECT, and all other requests 0 1k requests $0.00
+│ ├─ Lifecycle transition 0 1k requests $0.00
+│ ├─ Retrieval requests (standard) 0 1k requests $0.00
+│ ├─ Retrievals (standard) 0 GB-months $0.00
+│ ├─ Retrieval requests (bulk) 0 1k requests $0.00
+│ ├─ Retrievals (bulk) 0 GB-months $0.00
+│ └─ Early delete (within 180 days) 0 GB-months $0.00
+├─ Standard
+│ ├─ Storage 0 GB-months $0.00
+│ ├─ PUT, COPY, POST, LIST requests 0 1k requests $0.00
+│ ├─ GET, SELECT, and all other requests 0 1k requests $0.00
+│ ├─ Select data scanned 0 GB-months $0.00
+│ └─ Select data returned 0 GB-months $0.00
+├─ Intelligent tiering
+│ ├─ Storage (frequent access) 0 GB-months $0.00
+│ ├─ Storage (infrequent access) 0 GB-months $0.00
+│ ├─ Monitoring and automation 0 1k objects $0.00
+│ ├─ PUT, COPY, POST, LIST requests 0 1k requests $0.00
+│ ├─ GET, SELECT, and all other requests 0 1k requests $0.00
+│ ├─ Lifecycle transition 0 1k requests $0.00
+│ ├─ Select data scanned 0 GB-months $0.00
+│ ├─ Select data returned 0 GB-months $0.00
+│ └─ Early delete (within 30 days) 0 GB-months $0.00
+├─ Standard - infrequent access
+│ ├─ Storage 0 GB-months $0.00
+│ ├─ PUT, COPY, POST, LIST requests 0 1k requests $0.00
+│ ├─ GET, SELECT, and all other requests 0 1k requests $0.00
+│ ├─ Lifecycle transition 0 1k requests $0.00
+│ ├─ Retrievals 0 GB-months $0.00
+│ ├─ Select data scanned 0 GB-months $0.00
+│ └─ Select data returned 0 GB-months $0.00
+├─ One zone - infrequent access
+│ ├─ Storage 0 GB-months $0.00
+│ ├─ PUT, COPY, POST, LIST requests 0 1k requests $0.00
+│ ├─ GET, SELECT, and all other requests 0 1k requests $0.00
+│ ├─ Lifecycle transition 0 1k requests $0.00
+│ ├─ Retrievals 0 GB-months $0.00
+│ ├─ Select data scanned 0 GB-months $0.00
+│ └─ Select data returned 0 GB-months $0.00
+└─ Glacier
+├─ Storage 0 GB-months $0.00
+├─ PUT, COPY, POST, LIST requests 0 1k requests $0.00
+├─ GET, SELECT, and all other requests 0 1k requests $0.00
+├─ Lifecycle transition 0 1k requests $0.00
+├─ Retrieval requests (standard) 0 1k requests $0.00
+├─ Retrievals (standard) 0 GB-months $0.00
+├─ Select data scanned (standard) 0 GB-months $0.00
+├─ Select data returned (standard) 0 GB-months $0.00
+├─ Retrieval requests (expedited) 0 1k requests $0.00
+├─ Retrievals (expedited) 0 GB-months $0.00
+├─ Select data scanned (expedited) 0 GB-months $0.00
+├─ Select data returned (expedited) 0 GB-months $0.00
+├─ Retrieval requests (bulk) 0 1k requests $0.00
+├─ Retrievals (bulk) 0 GB-months $0.00
+├─ Select data scanned (bulk) 0 GB-months $0.00
+├─ Select data returned (bulk) 0 GB-months $0.00
+└─ Early delete (within 90 days) 0 GB-months $0.00
 
- PROJECT TOTAL                                                               $0.00
+PROJECT TOTAL $0.00
 ```
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
 ## Requirements
 
 No requirements.
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+| Name                                             | Version |
+| ------------------------------------------------ | ------- |
+| <a name="provider_aws"></a> [aws](#provider_aws) | n/a     |
 
 ## Modules
 
@@ -124,59 +126,60 @@ No modules.
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| [aws_codepipeline.pipe](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codepipeline) | resource |
-| [aws_iam_role.pipeline](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
-| [aws_iam_role_policy.inline_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
+| Name                                                                                                                                   | Type        |
+| -------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| [aws_codepipeline.pipe](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codepipeline)                      | resource    |
+| [aws_iam_role.pipeline](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role)                          | resource    |
+| [aws_iam_role_policy.inline_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy)       | resource    |
 | [aws_iam_policy_document.pipeline](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region)                            | data source |
 
 ## Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_artifact_store"></a> [artifact\_store](#input\_artifact\_store) | Map to populate the artifact block | `map(any)` | n/a | yes |
-| <a name="input_common_tags"></a> [common\_tags](#input\_common\_tags) | Implements the common tags scheme | `map(any)` | n/a | yes |
-| <a name="input_description"></a> [description](#input\_description) | Description of build project | `string` | n/a | yes |
-| <a name="input_name"></a> [name](#input\_name) | n/a | `string` | n/a | yes |
-| <a name="input_policypath"></a> [policypath](#input\_policypath) | n/a | `string` | `""` | no |
-| <a name="input_role_arn"></a> [role\_arn](#input\_role\_arn) | Optionally supply an existing role | `string` | `""` | no |
-| <a name="input_stages"></a> [stages](#input\_stages) | This list describes each stage of the build | `list(any)` | n/a | yes |
+| Name                                                                        | Description                                 | Type        | Default | Required |
+| --------------------------------------------------------------------------- | ------------------------------------------- | ----------- | ------- | :------: |
+| <a name="input_artifact_store"></a> [artifact_store](#input_artifact_store) | Map to populate the artifact block          | `map(any)`  | n/a     |   yes    |
+| <a name="input_common_tags"></a> [common_tags](#input_common_tags)          | Implements the common tags scheme           | `map(any)`  | n/a     |   yes    |
+| <a name="input_description"></a> [description](#input_description)          | Description of build project                | `string`    | n/a     |   yes    |
+| <a name="input_name"></a> [name](#input_name)                               | n/a                                         | `string`    | n/a     |   yes    |
+| <a name="input_policypath"></a> [policypath](#input_policypath)             | n/a                                         | `string`    | `""`    |    no    |
+| <a name="input_role_arn"></a> [role_arn](#input_role_arn)                   | Optionally supply an existing role          | `string`    | `""`    |    no    |
+| <a name="input_stages"></a> [stages](#input_stages)                         | This list describes each stage of the build | `list(any)` | n/a     |   yes    |
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_pipeline"></a> [pipeline](#output\_pipeline) | The output of the aws\_codepipeline resource |
-| <a name="output_role_arn"></a> [role\_arn](#output\_role\_arn) | ARN of the pipeline role |
-| <a name="output_role_name"></a> [role\_name](#output\_role\_name) | Name of the pipeline role created if var.role\_arn is not supplied |
+| Name                                                           | Description                                                       |
+| -------------------------------------------------------------- | ----------------------------------------------------------------- |
+| <a name="output_pipeline"></a> [pipeline](#output_pipeline)    | The output of the aws_codepipeline resource                       |
+| <a name="output_role_arn"></a> [role_arn](#output_role_arn)    | ARN of the pipeline role                                          |
+| <a name="output_role_name"></a> [role_name](#output_role_name) | Name of the pipeline role created if var.role_arn is not supplied |
+
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 'stages' is a list of maps, whose format is :
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| name | Stage name | `string` | n/a | yes |
-| enabled | If false, this stage will be ignored | `bool` | true | no |
-| action | A map described below | `map` | n/a | yes |
+| Name    | Description                          | Type     | Default | Required |
+| ------- | ------------------------------------ | -------- | ------- | :------: |
+| name    | Stage name                           | `string` | n/a     |   yes    |
+| enabled | If false, this stage will be ignored | `bool`   | true    |    no    |
+| action  | A map described below                | `map`    | n/a     |   yes    |
 
 'action' is a map whose format is described below. For more information on
 possible values, please refer to the [AWS documentation](https://docs.aws.amazon.com/codepipeline/latest/userguide/actions.html):
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| name | Name | `string` | n/a | yes |
-| owner | Owner | `string` | n/a | yes |
-| version | Version | `string` | n/a | yes |
-| category | Category | `string` | n/a | yes |
-| provider | Provider | `string` | n/a | yes |
-| input\_artifacts | A list of artifacts declared as output artifacts by other actions | `list(string)` | `[]` | no |
-| output\_artifacts | A list of artifacts to be declared as inputs in other actions | `list(string)` | `[]` | no |
-| configuration | A map whose content depends on the 5 first fields | `map` | `{}` | no |
-| role\_arn | If set, ovverrides the global role ARN for this action only | `string` | global value | no |
-| run\_order | Run order | `number` | null | no |
-| region | If set, overrides the default region for this action only | `string` | current region | no |
+| Name             | Description                                                       | Type           | Default        | Required |
+| ---------------- | ----------------------------------------------------------------- | -------------- | -------------- | :------: |
+| name             | Name                                                              | `string`       | n/a            |   yes    |
+| owner            | Owner                                                             | `string`       | n/a            |   yes    |
+| version          | Version                                                           | `string`       | n/a            |   yes    |
+| category         | Category                                                          | `string`       | n/a            |   yes    |
+| provider         | Provider                                                          | `string`       | n/a            |   yes    |
+| input_artifacts  | A list of artifacts declared as output artifacts by other actions | `list(string)` | `[]`           |    no    |
+| output_artifacts | A list of artifacts to be declared as inputs in other actions     | `list(string)` | `[]`           |    no    |
+| configuration    | A map whose content depends on the 5 first fields                 | `map`          | `{}`           |    no    |
+| role_arn         | If set, ovverrides the global role ARN for this action only       | `string`       | global value   |    no    |
+| run_order        | Run order                                                         | `number`       | null           |    no    |
+| region           | If set, overrides the default region for this action only         | `string`       | current region |    no    |
 
 ## Related Projects
 
@@ -198,7 +201,7 @@ Please use the [issue tracker](https://github.com/jameswoolfenden/terraform-aws-
 
 ## Copyrights
 
-Copyright © 2019-2021 James Woolfenden
+Copyright © 2019-2022 James Woolfenden
 
 ## License
 
