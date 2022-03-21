@@ -20,7 +20,7 @@ repos:
           - --allow-missing-credentials
       - id: detect-private-key
   - repo: https://github.com/Lucas-C/pre-commit-hooks
-    rev: v1.1.12
+    rev: v1.1.13
     hooks:
       - id: forbid-tabs
         exclude_types: [python, javascript, dtd, markdown, makefile, xml]
@@ -51,7 +51,7 @@ repos:
       - id: tf2docs
         language_version: python3.8
   - repo: https://github.com/bridgecrewio/checkov
-    rev: 2.0.830
+    rev: 2.0.975
     hooks:
       - id: checkov
         verbose: true
