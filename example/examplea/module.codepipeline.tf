@@ -5,4 +5,5 @@ module "codepipeline" {
   description    = var.description
   name           = var.name
   stages         = var.stages
+  kms_key_arn    = aws_kms_key.example.arn
 }

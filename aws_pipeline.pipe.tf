@@ -2,6 +2,10 @@ resource "aws_codepipeline" "pipe" {
   artifact_store {
     location = var.artifact_store["location"]
     type     = var.artifact_store["type"]
+    encryption_key {
+      id   = var.kms_key_arn
+      type = "KMS"
+    }
   }
 
   name     = var.name
