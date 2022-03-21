@@ -17,6 +17,7 @@ jobs:
         with:
           ref: master
           token: ${{ github.token }}
+          fetch-depth: '0'
       - name: Config Terraform plugin cache
         run: |
           echo 'plugin_cache_dir="$HOME/.terraform.d/plugin-cache"' >~/.terraformrc
@@ -58,6 +59,7 @@ jobs:
         with:
           ref: master
           token: ${{ github.token }}
+          fetch-depth: '0'
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
@@ -73,11 +75,13 @@ jobs:
     name: versioning
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
       - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@master
+        uses: anothrNick/github-tag-action@1.38.0
         env:
           GITHUB_TOKEN: ${{ github.token }}
           DEFAULT_BUMP: patch
-          WITH_V: "true"
+          WITH_V: true
     needs: [terraform, security]
