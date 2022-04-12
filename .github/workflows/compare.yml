@@ -2,8 +2,6 @@
 # yamllint disable rule:line-length
 name: Compare
 on:
-  schedule:
-    - cron: "00 7 * * SAT"
   workflow_dispatch:
 jobs:
   tfsec:
