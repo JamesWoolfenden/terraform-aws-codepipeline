@@ -31,3 +31,4 @@ checksums.txt
 *.tar.gz
 original/
 .external_modules
+twistcli
