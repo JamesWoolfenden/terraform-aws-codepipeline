@@ -2,8 +2,6 @@
 # yamllint disable rule:line-length
 name: Verify and Bump
 on:
-  schedule:
-    - cron: "00 7 * * SUN"
   workflow_dispatch:
   push:
     branches:
