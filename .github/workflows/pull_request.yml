@@ -37,4 +37,11 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
+      - run: |
+          pip3 install lastversion
+          lastversion terraform-docs --assets -d --verbose
+          mkdir $GITHUB_WORKSPACE/bin
+          tar -xvf terraform-docs*.tar.gz --directory $GITHUB_WORKSPACE/bin
+          chmod +x $GITHUB_WORKSPACE/bin/terraform-docs
+          echo "$GITHUB_WORKSPACE/bin" >> $GITHUB_PATH    
       - uses: pre-commit/action@v2.0.0
