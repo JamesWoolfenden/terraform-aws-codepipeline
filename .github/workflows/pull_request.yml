@@ -5,36 +5,52 @@ on:
   pull_request:
   workflow_dispatch:
 
+env:
+  terraform: 1.3.0
+  tf_target_dir: example/examplea
+
+permissions: read-all
+
 jobs:
   terraform:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
         with:
           token: ${{ github.token }}
           fetch-depth: '0'
       - name: Terraform Init
-        uses: hashicorp/terraform-github-actions@master
+        uses: hashicorp/terraform-github-actions@b2ca17c0c25198c67c668c37edcbc45ca086a91e # v0.8.0
         with:
-          tf_actions_version: 1.0.1
+          tf_actions_version: ${{ env.terraform }}
           tf_actions_subcommand: init
-          tf_actions_working_dir: example/examplea
+          tf_actions_working_dir: ${{ env.tf_target_dir }}
       - name: Terraform Validate
-        uses: hashicorp/terraform-github-actions@master
+        uses: hashicorp/terraform-github-actions@b2ca17c0c25198c67c668c37edcbc45ca086a91e # v0.8.0
         with:
-          tf_actions_version: 1.0.1
+          tf_actions_version: ${{ env.terraform }}
           tf_actions_subcommand: validate
-          tf_actions_working_dir: example/examplea
+          tf_actions_working_dir: ${{ env.tf_target_dir }}
   security:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
         with:
           token: ${{ github.token }}
           fetch-depth: '0'
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@61a6322f88396a6271a6ee3565807d608ecaddd1 # v4.7.0
         with:
-          python-version: 3.8
-      - uses: pre-commit/action@v2.0.0
+          python-version: 3.11
+      - run: |
+          pip3 install lastversion
+          lastversion terraform-docs --assets -d --verbose
+          mkdir "$GITHUB_WORKSPACE/bin"
+          tar -xvf terraform-docs*.tar.gz --directory "$GITHUB_WORKSPACE/bin"
+          chmod +x "$GITHUB_WORKSPACE/bin/terraform-docs"
+          wget https://github.com/rhysd/actionlint/releases/download/v1.6.23/actionlint_1.6.23_linux_amd64.tar.gz
+          tar -xvf actionlint_1.6.23_linux_amd64.tar.gz --directory "$GITHUB_WORKSPACE/bin"
+          chmod +x "$GITHUB_WORKSPACE/bin/actionlint"
+          echo "$GITHUB_WORKSPACE/bin" >> "$GITHUB_PATH"
+      - uses: pre-commit/action@646c83fcd040023954eafda54b4db0192ce70507 # v3.0.0

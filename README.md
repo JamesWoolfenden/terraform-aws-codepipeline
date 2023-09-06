@@ -1,6 +1,6 @@
 # terraform-aws-codepipeline
 
-[![Build Status](https://github.com/JamesWoolfenden/terraform-aws-codepipeline/workflows/Verify%20and%20Bump/badge.svg?branch=master)](https://github.com/JamesWoolfenden/terraform-aws-codepipeline)
+[![Build Status](https://github.com/JamesWoolfenden/terraform-aws-codepipeline/workflows/Verify/badge.svg?branch=master)](https://github.com/JamesWoolfenden/terraform-aws-codepipeline)
 [![Latest Release](https://img.shields.io/github/release/JamesWoolfenden/terraform-aws-codepipeline.svg)](https://github.com/JamesWoolfenden/terraform-aws-codepipeline/releases/latest)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/JamesWoolfenden/terraform-aws-codepipeline.svg?label=latest)](https://github.com/JamesWoolfenden/terraform-aws-codepipeline/releases/latest)
 ![Terraform Version](https://img.shields.io/badge/tf-%3E%3D0.14.0-blue.svg)
@@ -180,7 +180,9 @@ resource "aws_iam_policy" "terraform_pike" {
                 "codepipeline:TagResource",
                 "codepipeline:UntagResource"
             ],
-            "Resource": "*"
+            "Resource": [
+                "*"
+            ]
         },
         {
             "Sid": "VisualEditor1",
@@ -197,7 +199,9 @@ resource "aws_iam_policy" "terraform_pike" {
                 "iam:PassRole",
                 "iam:PutRolePolicy"
             ],
-            "Resource": "*"
+            "Resource": [
+                "*"
+            ]
         }
     ]
 })
@@ -251,7 +255,7 @@ Please use the [issue tracker](https://github.com/jameswoolfenden/terraform-aws-
 
 ## Copyrights
 
-Copyright © 2019-2022 James Woolfenden
+Copyright © 2019-2023 James Woolfenden
 
 ## License
 

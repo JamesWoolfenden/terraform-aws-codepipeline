@@ -1,7 +1,7 @@
 ---
 # yamllint disable rule:line-length
 default_language_version:
-  python: python3.8
+  python: python3.11
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
@@ -20,7 +20,7 @@ repos:
           - --allow-missing-credentials
       - id: detect-private-key
   - repo: https://github.com/Lucas-C/pre-commit-hooks
-    rev: v1.5.1
+    rev: v1.5.4
     hooks:
       - id: forbid-tabs
         exclude_types: [python, javascript, dtd, markdown, makefile, xml]
@@ -38,17 +38,18 @@ repos:
     rev: v0.1.50
     hooks:
       - id: terraform-fmt
-        language_version: python3.8
+        language_version: python3.11
       - id: tf2docs
-        language_version: python3.8
+        language_version: python3.11
   - repo: https://github.com/bridgecrewio/checkov
-    rev: 2.3.347
+    rev: 2.4.5
     hooks:
       - id: checkov
+        files: .
         verbose: true
-        entry: checkov -d example/examplea --external-checks-dir checkov --download-external-modules true
+        entry: checkov -d example/examplea --external-checks-dir checkov --download-external-modules true --compact
   - repo: https://github.com/jameswoolfenden/pike
-    rev: v0.2.81
+    rev: v0.2.82
     hooks:
       - id: pike-docs-go
-        args: ["-d", ".", "readme"]
+        args: ["readme","-d", ".", "-i"]

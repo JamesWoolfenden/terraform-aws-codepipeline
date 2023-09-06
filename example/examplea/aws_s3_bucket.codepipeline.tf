@@ -1,15 +1,14 @@
 
 resource "aws_s3_bucket" "codepipeline" {
-  # tfsec:ignore:AWS077
-  # tfsec:ignore:AWS002
   # checkov:skip=CKV_AWS_21: "Ensure all data stored in the S3 bucket have versioning enabled"
   # checkov:skip=CKV_AWS_52: "Ensure S3 bucket has MFA delete enabled"
   # checkov:skip=CKV_AWS_18: "Ensure the S3 bucket has access logging enabled"
   # checkov:skip=CKV2_AWS_37: not required
   # checkov:skip=CKV2_AWS_41: not_required
-  # checkov:skip=CKV_AWS_145: v4 legacy
-  # checkov:skip=CKV_AWS_144: v4 legacy
-  # checkov:skip=CKV_AWS_19: v4 legacy
+  # checkov:skip=CKV2_AWS_62:example
+  # checkov:skip=CKV2_AWS_61: not required
+  # checkov:skip=CKV_AWS_144: not required
+
   bucket = local.artifact_store.location
   tags   = var.common_tags
 }
