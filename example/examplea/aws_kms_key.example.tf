@@ -13,4 +13,3 @@ resource "aws_kms_key" "example" {
 POLICY
 }
 
-data "aws_caller_identity" "current" {}
