@@ -1,10 +1,8 @@
 ---
 # yamllint disable rule:line-length
-default_language_version:
-  python: python3.11
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c # v6.0.0
     hooks:
       - id: check-json
       - id: check-merge-conflict
@@ -20,26 +18,33 @@ repos:
           - --allow-missing-credentials
       - id: detect-private-key
   - repo: https://github.com/Lucas-C/pre-commit-hooks
-    rev: v1.5.4
+    rev: ad1b27d73581aa16cca06fc4a0761fc563ffe8e8 # v1.5.6
     hooks:
       - id: forbid-tabs
         exclude_types: [python, javascript, dtd, markdown, makefile, xml]
         exclude: binary|\.bin$
   - repo: https://github.com/jameswoolfenden/pre-commit-shell
-    rev: 0.0.2
+    rev: 062f0b028ae65827e04f91c1e6738cfcbe9b337f # v1.0.6
     hooks:
       - id: shell-lint
         exclude: template|\.template$
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.35.0
+    rev: e72a3ca1632f0b11a07d171449fe447a7ff6795e # v0.48.0
     hooks:
       - id: markdownlint
   - repo: https://github.com/jameswoolfenden/pre-commit
-    rev: v0.1.50
+    rev: ba5c36a3150a4184f9ee362a5cf11611ee9ae185 # v0.1.52
     hooks:
       - id: terraform-fmt
-        language_version: python3.11
       - id: tf2docs
-        language_version: python3.11
   - repo: https://github.com/bridgecrewio/checkov
     rev: e52a901a3829d818d20c9b75e544845c8b756968 # 3.2.526
+    hooks:
+      - id: checkov
+        verbose: true
+        entry: checkov -d example/examplea --external-checks-dir checkov --download-external-modules true
+  - repo: https://github.com/jameswoolfenden/pike
+    rev: d043242b9e1733e9e5a67c20bb87c05a4d563596 # v0.4.1
+    hooks:
+      - id: pike-docs-go
+        args: ["readme", "-d", ".", "-i"]
