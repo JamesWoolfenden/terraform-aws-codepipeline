@@ -1,4 +1,3 @@
-
 resource "aws_s3_bucket" "codepipeline" {
   # checkov:skip=CKV_AWS_21: "Ensure all data stored in the S3 bucket have versioning enabled"
   # checkov:skip=CKV_AWS_52: "Ensure S3 bucket has MFA delete enabled"
@@ -12,7 +11,6 @@ resource "aws_s3_bucket" "codepipeline" {
   bucket = local.artifact_store.location
   tags   = var.common_tags
 }
-
 resource "aws_s3_bucket_server_side_encryption_configuration" "codepipeline" {
   bucket = aws_s3_bucket.codepipeline.bucket
   rule {
@@ -22,8 +20,6 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "codepipeline" {
     }
   }
 }
-
-
 resource "aws_s3_bucket_acl" "codepipeline" {
   bucket = aws_s3_bucket.codepipeline.bucket
   acl    = "private"
