@@ -41,10 +41,20 @@ repos:
     rev: e52a901a3829d818d20c9b75e544845c8b756968 # 3.2.526
     hooks:
       - id: checkov
+        files: .
         verbose: true
-        entry: checkov -d example/examplea --external-checks-dir checkov --download-external-modules true
+        entry: checkov -d example/examplea --external-checks-dir checkov --download-external-modules true --compact
   - repo: https://github.com/jameswoolfenden/pike
     rev: d043242b9e1733e9e5a67c20bb87c05a4d563596 # v0.4.1
     hooks:
       - id: pike-docs-go
         args: ["readme", "-d", ".", "-i"]
+  - repo: https://github.com/rhysd/actionlint
+    rev: 914e7df21a07ef503a81201c76d2b11c789d3fca # v1.7.12
+    hooks:
+      - id: actionlint
+  - repo: https://github.com/jameswoolfenden/ghat
+    rev: 39564606bb33ecaae4a339a36d6184fbc71df734 # v0.1.26
+    hooks:
+      - id: ghat-go
+      - id: ghat-go-sift
