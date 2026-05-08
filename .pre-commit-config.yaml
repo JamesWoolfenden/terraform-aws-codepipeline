@@ -41,7 +41,6 @@ repos:
     rev: e77b5f7422ad23034c1a3c0a1902cd7e9eb60caf # 3.2.527
     hooks:
       - id: checkov
-        files: .
         verbose: true
         entry: checkov -d example/examplea --external-checks-dir checkov --download-external-modules true --compact
   - repo: https://github.com/jameswoolfenden/pike
