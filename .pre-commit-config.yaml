@@ -53,7 +53,7 @@ repos:
     hooks:
       - id: actionlint
   - repo: https://github.com/jameswoolfenden/ghat
-    rev: e60f56cec93d64866fa82cf6511ce7c0cd92bb20 # v0.1.29
+    rev: 783f1adff1b67e121f0a3af745979b0ccab69e11 # v0.1.31
     hooks:
       - id: ghat-go
       - id: ghat-go-sift
