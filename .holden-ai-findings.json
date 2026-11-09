@@ -96,10 +96,10 @@
     },
     {
       "id": "HOLDEN_AI_005",
-      "status": "open",
+      "status": "fixed",
       "first_seen": "2026-11-09",
       "last_seen": "2026-11-09",
-      "unresolved_since": "2026-11-09",
+      "unresolved_since": null,
       "suppression_reason": null,
       "principle": "maintainability",
       "severity": "LOW",

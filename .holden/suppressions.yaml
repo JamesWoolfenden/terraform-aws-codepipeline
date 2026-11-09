@@ -1,0 +1,4 @@
+suppressions:
+  - policy_id: HLD_TF_063
+    resource_id: aws_codepipeline.pipe
+    reason: "Pipeline stages and actions are built from a caller-supplied list via nested dynamic blocks with per-attribute lookup() defaults; splitting it would not make it simpler"

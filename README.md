@@ -22,7 +22,6 @@ module "codepipeline" {
   source         = "JamesWoolfenden/codepipeline/aws"
   version        = "0.4.21"
   artifact_store = var.artifact_store
-  common_tags    = var.common_tags
   description    = var.description
   name           = var.name
   stages         = var.stages
@@ -135,7 +134,6 @@ No modules.
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_artifact_store"></a> [artifact\_store](#input\_artifact\_store) | Map to populate the artifact block | `map(any)` | n/a | yes |
-| <a name="input_common_tags"></a> [common\_tags](#input\_common\_tags) | Implements the common tags scheme | `map(any)` | n/a | yes |
 | <a name="input_description"></a> [description](#input\_description) | Description of build project | `string` | n/a | yes |
 | <a name="input_kms_key_arn"></a> [kms\_key\_arn](#input\_kms\_key\_arn) | n/a | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | n/a | `string` | n/a | yes |
