@@ -17,4 +17,3 @@ variable "stages" {
     error_message = "The stages list must contain at least one stage."
   }
 }
-

@@ -24,12 +24,12 @@ repos:
         exclude_types: [python, javascript, dtd, markdown, makefile, xml]
         exclude: binary|\.bin$
   - repo: https://github.com/jameswoolfenden/pre-commit-shell
-    rev: 062f0b028ae65827e04f91c1e6738cfcbe9b337f # v1.0.6
+    rev: cb16822cc2c347707ea076fd4ede0d483fbbab47 # v1.0.7
     hooks:
       - id: shell-lint
         exclude: template|\.template$
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: 5b5dddc4fb0f83c3ea1fc5616fa63e115dce83e0 # v0.49.1
+    rev: cbcdc463be5464e25e3e955a511599a67b9b987f # v0.50.0
     hooks:
       - id: markdownlint
   - repo: https://github.com/jameswoolfenden/pre-commit
@@ -56,7 +56,7 @@ repos:
         # Requires `pre-commit install --hook-type pre-push` once per clone.
         stages: [pre-push]
   - repo: https://github.com/jameswoolfenden/pike
-    rev: a38ea683d195b2a3a3dc08d233dc231f1db58f73 # v1.0.12
+    rev: 716798c1e676a533c66d080573957b0d63610ca6 # v1.0.15
     hooks:
       - id: pike-docs-go
         args: ["readme", "-d", ".", "-i"]
@@ -65,7 +65,7 @@ repos:
     hooks:
       - id: actionlint
   - repo: https://github.com/jameswoolfenden/ghat
-    rev: 08381491f793709efce1b6cdc117001429444901 # v0.1.50
+    rev: 995b7f2c3aef001969b7d8d84ebc82df8f9f5a87 # v0.1.53
     hooks:
       - id: ghat-go
       - id: ghat-go-sift
