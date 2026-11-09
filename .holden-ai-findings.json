@@ -1,0 +1,129 @@
+{
+  "scan_date": "2026-11-09T00:00:00Z",
+  "scan_path": ".",
+  "category": "all",
+  "findings": [
+    {
+      "id": "HOLDEN_AI_001",
+      "status": "suppressed",
+      "first_seen": "2026-11-09",
+      "last_seen": "2026-11-09",
+      "unresolved_since": null,
+      "suppression_reason": "Pipeline service role needs account-wide access across the services it orchestrates; matches the existing checkov skips. Consumers can supply their own role via role_arn.",
+      "principle": "identity-and-access",
+      "severity": "HIGH",
+      "confidence": "medium",
+      "title": "Pipeline role can PassRole any role to CloudFormation/EC2/ECS/Beanstalk while holding ec2:*, ecs:*, elasticbeanstalk:* on *",
+      "file": "data.aws_iam_policy_document.pipeline.tf",
+      "line": 1,
+      "resource": "data.aws_iam_policy_document.pipeline",
+      "related_resources": [
+        "aws_iam_role.pipeline",
+        "aws_iam_role_policy.inline_policy"
+      ],
+      "explanation": "iam:PassRole is granted on Resource \"*\" (limited only by iam:PassedToService with StringEqualsIfExists), and the same document grants ec2:*, ecs:*, elasticbeanstalk:* and rds:* on \"*\". Anyone who can edit the pipeline can launch an EC2/ECS task or CloudFormation stack with any role in the account, including an administrator role, which is a privilege escalation path. HLD_AWS_222 flags the wildcard resource but not the PassRole + compute-launch composition, and StringEqualsIfExists passes whenever the key is absent.",
+      "remediation": "Scope iam:PassRole to the specific role ARNs the pipeline's deploy targets use (a variable such as pass_role_arns), switch the condition to StringEquals, and replace the service-wide wildcard actions with the specific actions the stages need.",
+      "supersedes": "HLD_AWS_222",
+      "fixable": false
+    },
+    {
+      "id": "HOLDEN_AI_002",
+      "status": "fixed",
+      "first_seen": "2026-11-09",
+      "last_seen": "2026-11-09",
+      "unresolved_since": null,
+      "suppression_reason": null,
+      "principle": "reliability",
+      "severity": "MEDIUM",
+      "confidence": "high",
+      "title": "Example KMS key policy is a bare statement without Version/Statement wrapper, so apply fails",
+      "file": "example/examplea/aws_kms_key.example.tf",
+      "line": 1,
+      "resource": "aws_kms_key.example",
+      "related_resources": [
+        "aws_s3_bucket_server_side_encryption_configuration.codepipeline",
+        "module.codepipeline"
+      ],
+      "explanation": "The heredoc policy is a single statement object ({Sid, Effect, Principal, Action, Resource}) with no Version and no Statement array. KMS rejects this with MalformedPolicyDocumentException, so the example cannot be applied, and holden's HLD_AWS_292/HLD_AWS_317 checks stayed Unknown because the document does not parse as a policy. Read as intended, the statement only delegates to the account root, so no wildcard principal or logs-service grant exists (both unresolved checks are safe). The example is the module's documented usage, so a broken key blocks every consumer who copies it.",
+      "remediation": "Wrap the statement in a policy document, ideally with jsonencode, and add deletion_window_in_days.",
+      "fixable": true,
+      "fix": "policy = jsonencode({\n  Version = \"2012-10-17\"\n  Statement = [{\n    Sid       = \"Enable IAM User Permissions\"\n    Effect    = \"Allow\"\n    Principal = { AWS = \"arn:aws:iam::${data.aws_caller_identity.current.account_id}:root\" }\n    Action    = \"kms:*\"\n    Resource  = \"*\"\n  }]\n})"
+    },
+    {
+      "id": "HOLDEN_AI_003",
+      "status": "fixed",
+      "first_seen": "2026-11-09",
+      "last_seen": "2026-11-09",
+      "unresolved_since": null,
+      "suppression_reason": null,
+      "principle": "reliability",
+      "severity": "MEDIUM",
+      "confidence": "medium",
+      "title": "Module requires a CMK for the artifact store but the role it creates has no KMS permissions",
+      "file": "data.aws_iam_policy_document.pipeline.tf",
+      "line": 1,
+      "resource": "data.aws_iam_policy_document.pipeline",
+      "related_resources": [
+        "aws_codepipeline.pipe",
+        "aws_iam_role.pipeline",
+        "var.kms_key_arn"
+      ],
+      "explanation": "aws_codepipeline.pipe always sets artifact_store.encryption_key to var.kms_key_arn (required, no default), yet the generated policy has no kms:Decrypt, kms:GenerateDataKey* or kms:DescribeKey grant. With the usual key policy that delegates to IAM (as in the example), the module-created role cannot read or write artifacts and the pipeline fails at the first stage. It only works when the caller grants the role KMS access separately or supplies role_arn.",
+      "remediation": "Add a statement granting kms:Decrypt, kms:GenerateDataKey*, kms:DescribeKey on var.kms_key_arn to the policy document, or document that callers must grant it.",
+      "fixable": false
+    },
+    {
+      "id": "HOLDEN_AI_004",
+      "status": "fixed",
+      "first_seen": "2026-11-09",
+      "last_seen": "2026-11-09",
+      "unresolved_since": null,
+      "suppression_reason": null,
+      "principle": "network-security",
+      "severity": "MEDIUM",
+      "confidence": "high",
+      "title": "Artifact bucket has no bucket policy denying non-TLS requests",
+      "file": "example/examplea/aws_s3_bucket.codepipeline.tf",
+      "line": 1,
+      "resource": "aws_s3_bucket.codepipeline",
+      "related_resources": [
+        "aws_s3_bucket_public_access_block.pipeline"
+      ],
+      "explanation": "The example defines no aws_s3_bucket_policy, so requests over plain HTTP are accepted. The bucket holds source and build artifacts, and no built-in policy covers TLS enforcement for aws_s3_bucket (coverage lists only encryption, public access block, logging, versioning, lifecycle and object lock).",
+      "remediation": "Add an aws_s3_bucket_policy with a Deny on s3:* when aws:SecureTransport is false.",
+      "fixable": true,
+      "fix": "resource \"aws_s3_bucket_policy\" \"codepipeline\" {\n  bucket = aws_s3_bucket.codepipeline.id\n  policy = jsonencode({\n    Version = \"2012-10-17\"\n    Statement = [{\n      Sid       = \"DenyInsecureTransport\"\n      Effect    = \"Deny\"\n      Principal = \"*\"\n      Action    = \"s3:*\"\n      Resource  = [aws_s3_bucket.codepipeline.arn, \"${aws_s3_bucket.codepipeline.arn}/*\"]\n      Condition = { Bool = { \"aws:SecureTransport\" = \"false\" } }\n    }]\n  })\n}"
+    },
+    {
+      "id": "HOLDEN_AI_005",
+      "status": "open",
+      "first_seen": "2026-11-09",
+      "last_seen": "2026-11-09",
+      "unresolved_since": "2026-11-09",
+      "suppression_reason": null,
+      "principle": "maintainability",
+      "severity": "LOW",
+      "confidence": "medium",
+      "title": "Module uses data.aws_region.current.name, deprecated in AWS provider 6.x",
+      "file": "locals.tf",
+      "line": 3,
+      "resource": "local.role_name",
+      "related_resources": [
+        "aws_codepipeline.pipe",
+        "example/examplea/locals.tf"
+      ],
+      "explanation": "The example pins hashicorp/aws 6.43.0, where the region data source's name attribute is deprecated in favour of region. It is used in locals.tf, aws_pipeline.pipe.tf (action region default) and the example's locals.tf, so consumers get deprecation warnings. The module declares no provider constraint, so switching to .region would break consumers still on provider 5.x; the right fix depends on the supported range, which is why it is not marked fixable.",
+      "remediation": "Move to data.aws_region.current.region and add a required_providers constraint of aws >= 6 to the module, or keep .name and document the 5.x support range.",
+      "fixable": false
+    }
+  ],
+  "suggested_policies": [
+    {
+      "rationale": "S3 buckets should enforce TLS with a bucket policy denying aws:SecureTransport = false. No built-in policy covers this for aws_s3_bucket; the check needs to inspect the content of the companion policy, which the DSL's requires_companion cannot do.",
+      "yaml": "id: LOCAL_AWS_001\nname: S3 buckets must have a bucket policy that denies non-TLS requests\nprinciple: network-security\nseverity: MEDIUM\nrationale: |\n  Without a Deny on aws:SecureTransport = false, clients can read and write\n  objects over plain HTTP, exposing data and credentials-bearing requests to\n  interception.\nmessage: |\n  aws_s3_bucket has no aws_s3_bucket_policy denying requests where aws:SecureTransport is false.\nremediation: |\n  Add an aws_s3_bucket_policy with a Deny statement on s3:* for the bucket and\n  its objects, conditioned on Bool aws:SecureTransport = false.\nresources:\n  aws_s3_bucket:\n    requires_companion:\n      type: aws_s3_bucket_policy\n      via: bucket\n      where:\n        path: policy\n        contains: aws:SecureTransport\n",
+      "requires_dsl_extension": true,
+      "dsl_extension_note": "requires_companion.where needs a substring/JSON-aware match on the companion's policy attribute (statement with Effect Deny and Condition Bool aws:SecureTransport = false). A plain string 'contains' on the rendered policy JSON is enough to implement the minimal version."
+    }
+  ],
+  "suggested_suppressions": []
+}
