@@ -10,6 +10,11 @@ permissions:
   id-token: write
   contents: write
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
+# holden:ignore:HLD_CI_017: By Design
   verify:
     uses: JamesWoolfenden/.github/.github/workflows/terraform-verify.yml@main

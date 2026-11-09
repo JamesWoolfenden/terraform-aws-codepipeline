@@ -53,7 +53,3 @@ stages = [
   }
 ]
 
-common_tags = {
-  name   = "aws-codebuild-container"
-  module = "JamesWoolfenden/codepipeline/aws"
-}

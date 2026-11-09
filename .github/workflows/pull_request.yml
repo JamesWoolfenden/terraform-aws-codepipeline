@@ -8,5 +8,6 @@ permissions:
   contents: read
 
 jobs:
+# holden:ignore:HLD_CI_017:By Design
   pr:
     uses: JamesWoolfenden/.github/.github/workflows/terraform-pr.yml@main

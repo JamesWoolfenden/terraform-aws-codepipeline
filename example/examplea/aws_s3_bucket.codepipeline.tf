@@ -1,16 +1,8 @@
 resource "aws_s3_bucket" "codepipeline" {
-  # checkov:skip=CKV_AWS_21: "Ensure all data stored in the S3 bucket have versioning enabled"
-  # checkov:skip=CKV_AWS_52: "Ensure S3 bucket has MFA delete enabled"
-  # checkov:skip=CKV_AWS_18: "Ensure the S3 bucket has access logging enabled"
-  # checkov:skip=CKV2_AWS_37: not required
-  # checkov:skip=CKV2_AWS_41: not_required
-  # checkov:skip=CKV2_AWS_62:example
-  # checkov:skip=CKV2_AWS_61: not required
-  # checkov:skip=CKV_AWS_144: not required
 
   bucket = local.artifact_store.location
-  tags   = var.common_tags
 }
+
 resource "aws_s3_bucket_server_side_encryption_configuration" "codepipeline" {
   bucket = aws_s3_bucket.codepipeline.bucket
   rule {
@@ -20,6 +12,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "codepipeline" {
     }
   }
 }
+
 resource "aws_s3_bucket_public_access_block" "pipeline" {
   bucket                  = aws_s3_bucket.codepipeline.id
   restrict_public_buckets = true
@@ -27,18 +20,21 @@ resource "aws_s3_bucket_public_access_block" "pipeline" {
   block_public_policy     = true
   ignore_public_acls      = true
 }
+
 resource "aws_s3_bucket_ownership_controls" "codepipeline" {
   bucket = aws_s3_bucket.codepipeline.id
   rule {
     object_ownership = "BucketOwnerEnforced"
   }
 }
+
 resource "aws_s3_bucket_versioning" "codepipeline" {
   bucket = aws_s3_bucket.codepipeline.id
   versioning_configuration {
     status = "Enabled"
   }
 }
+
 resource "aws_s3_bucket_lifecycle_configuration" "codepipeline" {
   bucket = aws_s3_bucket.codepipeline.id
 

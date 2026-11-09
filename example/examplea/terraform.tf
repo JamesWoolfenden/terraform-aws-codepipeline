@@ -1,3 +1,4 @@
+# holden:ignore:HLD_TF_004: test data
 terraform {
   required_providers {
 
@@ -15,5 +16,5 @@ terraform {
       version = "2.8.0"
     }
   }
-  required_version = ">= 1.3.5"
+  required_version = ">= 1.7.0"
 }
