@@ -1,3 +1,4 @@
 output "pipeline" {
-  value = module.codepipeline
+  description = "The outputs of the codepipeline module"
+  value       = module.codepipeline
 }

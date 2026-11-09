@@ -1,0 +1,19 @@
+suppressions:
+  - policy_id: HLD_TF_041
+    resource_id: aws_kms_key.example
+    reason: "Example-only key for the demo root; it is meant to be destroyed with the example"
+  - policy_id: HLD_TF_020
+    resource_id: aws_kms_key.example
+    reason: "Example name; renaming would change the state address for anyone who has applied the example"
+  - policy_id: HLD_TF_026
+    resource_id: module.codepipeline
+    reason: "The example consumes the module from the repository root (../../) by design, and is not published separately"
+  - policy_id: HLD_AWS_144
+    resource_id: aws_s3_bucket.codepipeline
+    reason: "Example artifact bucket; a dedicated access-log bucket would add noise to the demo"
+  - policy_id: HLD_AWS_310
+    resource_id: aws_s3_bucket.codepipeline
+    reason: "Example artifact bucket; Object Lock cannot be enabled on an existing bucket and is not required for pipeline artifacts"
+  - policy_id: HLD_AWS_222
+    resource_id: module.codepipeline.data.aws_iam_policy_document.pipeline
+    reason: "Pipeline service role needs account-wide access across the services it orchestrates; matches the module's existing checkov skips. Consumers can supply their own role via role_arn"

@@ -1,5 +1,4 @@
-description = ""
-name        = "cron-poll"
+name = "cron-poll"
 stages = [
   {
     name = "Source"

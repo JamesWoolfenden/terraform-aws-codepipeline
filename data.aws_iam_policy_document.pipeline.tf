@@ -106,4 +106,16 @@ data "aws_iam_policy_document" "pipeline" {
 
     resources = ["*"]
   }
+
+  statement {
+    actions = [
+      "kms:Decrypt",
+      "kms:DescribeKey",
+      "kms:Encrypt",
+      "kms:GenerateDataKey*",
+      "kms:ReEncrypt*"
+    ]
+
+    resources = [var.kms_key_arn]
+  }
 }
